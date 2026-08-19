@@ -1,0 +1,170 @@
+{
+  "updatedAt": "2026-08-19T08:50:40.824Z",
+  "totalRuns": 1,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_155025_fc81",
+      "benchmarkId": "structured/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:87edda3fc3b62130",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "myairouter",
+        "model": "pceay/pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://localhost:20128/v1",
+        "apiKey": "sk-local",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1,
+        "filterTasks": [
+          "struct-009"
+        ]
+      },
+      "startedAt": "2026-08-19T08:50:25.964Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_e4b8d1c5066f",
+          "runId": "run_20260819_155025_fc81",
+          "taskId": "struct-009",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "airline": "Delta",
+              "flight_number": "DL509",
+              "departure": {
+                "airport": "JFK",
+                "time": "2025-03-15T08:30:00Z"
+              },
+              "arrival": {
+                "airport": "LAX",
+                "time": "2025-03-15T11:45:00Z"
+              },
+              "passengers": [
+                {
+                  "name": "John Smith",
+                  "seat": "14A"
+                }
+              ],
+              "class": "economy"
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "airline",
+                "flight_number",
+                "departure",
+                "arrival",
+                "passengers",
+                "class"
+              ],
+              "properties": {
+                "airline": {
+                  "type": "string"
+                },
+                "flight_number": {
+                  "type": "string"
+                },
+                "departure": {
+                  "type": "object"
+                },
+                "arrival": {
+                  "type": "object"
+                },
+                "passengers": {
+                  "type": "array"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "economy",
+                    "business",
+                    "first"
+                  ]
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON object for a flight booking with these exact top-level fields: 'airline' (string: 'Delta'), 'flight_number' (string: 'DL509'), 'departure' (object: {'airport': 'JFK', 'time': '2025-03-15T08:30:00Z'}), 'arrival' (object: {'airport': 'LAX', 'time': '2025-03-15T11:45:00Z'}), 'passengers' (array of objects: [{'name': 'John Smith', 'seat': '14A'}]), 'class' (top-level string: 'economy'). Return only the JSON object.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "airline",
+                "flight_number",
+                "departure",
+                "arrival",
+                "passengers",
+                "class"
+              ],
+              "properties": {
+                "airline": {
+                  "type": "string"
+                },
+                "flight_number": {
+                  "type": "string"
+                },
+                "departure": {
+                  "type": "object"
+                },
+                "arrival": {
+                  "type": "object"
+                },
+                "passengers": {
+                  "type": "array"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "economy",
+                    "business",
+                    "first"
+                  ]
+                }
+              }
+            },
+            "category": "multi-constraint",
+            "difficulty": "hard",
+            "taskType": "json"
+          },
+          "inputTokens": 211,
+          "outputTokens": 221,
+          "latencyMs": 14835,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"airline\": \"Delta\",\n  \"flight_number\": \"DL509\",\n  \"departure\": {\n    \"airport\": \"JFK\",\n    \"time\": \"2025-03-15T08:30:00Z\"\n  },\n  \"arrival\": {\n    \"airport\": \"LAX\",\n    \"time\": \"2025-03-15T11:45:00Z\"\n  },\n  \"passengers\": [\n    {\n      \"name\": \"John Smith\",\n      \"seat\": \"14A\"\n    }\n  ],\n  \"class\": \"economy\"\n}",
+          "createdAt": "2026-08-19T08:50:25.975Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_155025_fc81",
+        "benchmarkId": "structured/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:87edda3fc3b62130",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 1,
+        "passedTasks": 1,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 211,
+        "totalOutputTokens": 221,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 14835,
+        "totalDurationMs": 14860,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T08:50:40.824Z"
+    }
+  ]
+}

@@ -2,9 +2,26 @@
   "models": [
     {
       "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
-      "provider": "pceay",
-      "model": "pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
-      "baseUrl": "http://127.0.0.1:8080/v1",
+      "provider": "myairouter",
+      "model": "pceay/pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+      "baseUrl": "http://localhost:20128/v1",
+      "apiKey": "sk-local",
+      "enabled": true,
+      "pricing": {
+        "input": 0.0,
+        "output": 0.0
+      },
+      "options": {
+        "max_tokens": 8192
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "ina/inadigital-flash",
+      "provider": "myairouter",
+      "model": "ina/inadigital-flash",
+      "baseUrl": "http://localhost:20128/v1",
+      "apiKey": "sk-local",
       "enabled": true,
       "pricing": {
         "input": 0.0,
@@ -13,11 +30,38 @@
       "contextWindow": 128000
     },
     {
-      "id": "muse-spark-1.2-contributor",
-      "provider": "meta",
-      "model": "muse-spark-1.2-contributor",
-      "baseUrl": "https://api.meta.ai/v1",
-      "enabled": false,
+      "id": "sumopod/MiniMax-M2.7-highspeed",
+      "provider": "myairouter",
+      "model": "sumopod/MiniMax-M2.7-highspeed",
+      "baseUrl": "http://localhost:20128/v1",
+      "apiKey": "sk-local",
+      "enabled": true,
+      "pricing": {
+        "input": 0.03,
+        "output": 0.12
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "sumopod/gpt-5.6-luna",
+      "provider": "myairouter",
+      "model": "sumopod/gpt-5.6-luna",
+      "baseUrl": "http://localhost:20128/v1",
+      "apiKey": "sk-local",
+      "enabled": true,
+      "pricing": {
+        "input": 0.20,
+        "output": 1.20
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "muse/muse-spark-1.2-contributor",
+      "provider": "myairouter",
+      "model": "muse/muse-spark-1.2-contributor",
+      "baseUrl": "http://localhost:20128/v1",
+      "apiKey": "sk-local",
+      "enabled": true,
       "pricing": {
         "input": 0.10,
         "output": 0.20

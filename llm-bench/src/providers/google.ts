@@ -84,21 +84,34 @@ export class GoogleModel implements Model {
       throw error;
     }
 
-    const data = (await response.json()) as any;
-    const candidate = data.candidates?.[0];
+    let data: Record<string, unknown> | null = null;
+    try {
+      data = (await response.json()) as Record<string, unknown>;
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      throw new Error(`Google Gemini returned invalid JSON: ${msg}`);
+    }
+
+    if (!data || typeof data !== "object") {
+      throw new Error("Google Gemini returned empty or invalid response object");
+    }
+
+    const candidates = data.candidates as Array<{ content?: { parts?: Array<{ text?: string }> }; finishReason?: string }> | undefined;
+    const candidate = candidates?.[0];
     let text = "";
     if (Array.isArray(candidate?.content?.parts)) {
       for (const part of candidate.content.parts) {
-        if (typeof part.text === "string") {
+        if (typeof part?.text === "string") {
           text += part.text;
         }
       }
     }
 
+    const usageMetadata = data.usageMetadata as Record<string, unknown> | undefined;
     const usage: ModelUsage = {
-      inputTokens: data.usageMetadata?.promptTokenCount ?? 0,
-      outputTokens: data.usageMetadata?.candidatesTokenCount ?? 0,
-      cachedInputTokens: data.usageMetadata?.cachedContentTokenCount ?? undefined,
+      inputTokens: (usageMetadata?.promptTokenCount as number) ?? 0,
+      outputTokens: (usageMetadata?.candidatesTokenCount as number) ?? 0,
+      cachedInputTokens: (usageMetadata?.cachedContentTokenCount as number) ?? undefined,
     };
 
     return {

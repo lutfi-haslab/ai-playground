@@ -30,7 +30,8 @@ export class RegexEvaluator implements Evaluator {
       };
     }
 
-    const match = regex.exec(response.text);
+    const text = response.text.trim();
+    const match = regex.exec(text);
     const passed = match !== null;
 
     return {

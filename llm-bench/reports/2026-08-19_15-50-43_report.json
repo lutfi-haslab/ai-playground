@@ -1,0 +1,740 @@
+{
+  "updatedAt": "2026-08-19T08:50:53.812Z",
+  "totalRuns": 1,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_155043_5fcb",
+      "benchmarkId": "structured/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:87edda3fc3b62130",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "myairouter",
+        "model": "pceay/pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://localhost:20128/v1",
+        "apiKey": "sk-local",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T08:50:43.897Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_2a5c9e4bde57",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-001",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "name": "Dr. Jane Doe",
+              "age": 34,
+              "occupation": "physicist",
+              "location": "Cambridge",
+              "email": "jane.doe@cambridge.ac.uk"
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Extract person details as a JSON object: 'Dr. Jane Doe is a 34-year-old physicist living in Cambridge with email jane.doe@cambridge.ac.uk'. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "category": "user-profile",
+            "difficulty": "easy",
+            "taskType": "json"
+          },
+          "inputTokens": 91,
+          "outputTokens": 222,
+          "latencyMs": 18,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"name\": \"Dr. Jane Doe\",\n  \"age\": 34,\n  \"occupation\": \"physicist\",\n  \"location\": \"Cambridge\",\n  \"email\": \"jane.doe@cambridge.ac.uk\"\n}",
+          "createdAt": "2026-08-19T08:50:43.906Z"
+        },
+        {
+          "id": "res_99d2faf5bceb",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-002",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": [
+              "north",
+              "south",
+              "east",
+              "west"
+            ],
+            "schema": {
+              "type": "array"
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON array of the 4 cardinal compass directions as lowercase strings. Return only the JSON array, no other text.",
+            "expected": {
+              "type": "array"
+            },
+            "category": "simple-list",
+            "difficulty": "easy",
+            "taskType": "json"
+          },
+          "inputTokens": 77,
+          "outputTokens": 207,
+          "latencyMs": 19,
+          "costUsd": 0,
+          "response": "\n\n[\"north\",\"south\",\"east\",\"west\"]",
+          "createdAt": "2026-08-19T08:50:43.933Z"
+        },
+        {
+          "id": "res_93035892c05e",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-003",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "US": "United States",
+              "GB": "United Kingdom",
+              "JP": "Japan"
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "US",
+                "GB",
+                "JP"
+              ],
+              "properties": {
+                "US": {
+                  "type": "string"
+                },
+                "GB": {
+                  "type": "string"
+                },
+                "JP": {
+                  "type": "string"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON object mapping these country codes to country names: 'US' -> 'United States', 'GB' -> 'United Kingdom', 'JP' -> 'Japan'. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "US",
+                "GB",
+                "JP"
+              ],
+              "properties": {
+                "US": {
+                  "type": "string"
+                },
+                "GB": {
+                  "type": "string"
+                },
+                "JP": {
+                  "type": "string"
+                }
+              }
+            },
+            "category": "key-value",
+            "difficulty": "easy",
+            "taskType": "json"
+          },
+          "inputTokens": 91,
+          "outputTokens": 157,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"US\": \"United States\",\n  \"GB\": \"United Kingdom\",\n  \"JP\": \"Japan\"\n}",
+          "createdAt": "2026-08-19T08:50:43.961Z"
+        },
+        {
+          "id": "res_742aa28a36c8",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-004",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "customer": "Acme Corp",
+              "currency": "USD",
+              "items": [
+                {
+                  "name": "Server Hosting",
+                  "price": 120,
+                  "qty": 2
+                },
+                {
+                  "name": "SSL Certificate",
+                  "price": 50,
+                  "qty": 1
+                }
+              ]
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Create a JSON object for an invoice. Customer: 'Acme Corp'. Currency: 'USD'. Items: [{ \"name\": \"Server Hosting\", \"price\": 120, \"qty\": 2 }, { \"name\": \"SSL Certificate\", \"price\": 50, \"qty\": 1 }]. Use exactly the field names 'customer' (string), 'currency' (string), and 'items' (array of objects). Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "category": "invoice",
+            "difficulty": "medium",
+            "taskType": "json"
+          },
+          "inputTokens": 179,
+          "outputTokens": 145,
+          "latencyMs": 13,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"customer\": \"Acme Corp\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"name\": \"Server Hosting\",\n      \"price\": 120,\n      \"qty\": 2\n    },\n    {\n      \"name\": \"SSL Certificate\",\n      \"price\": 50,\n      \"qty\": 1\n    }\n  ]\n}",
+          "createdAt": "2026-08-19T08:50:43.980Z"
+        },
+        {
+          "id": "res_5aaeb2dc86af",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-005",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "title": "Dune",
+              "author": {
+                "firstName": "Frank",
+                "lastName": "Herbert"
+              },
+              "year": 1965,
+              "genres": [
+                "science fiction",
+                "adventure"
+              ]
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "title",
+                "author",
+                "year",
+                "genres"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "object"
+                },
+                "year": {
+                  "type": "number"
+                },
+                "genres": {
+                  "type": "array"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON object describing a book with these exact fields: 'title' (string), 'author' (object with 'firstName' and 'lastName' strings), 'year' (number), 'genres' (array of strings). Use: Title 'Dune', Author Frank Herbert, Year 1965, Genres science fiction and adventure. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "title",
+                "author",
+                "year",
+                "genres"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "author": {
+                  "type": "object"
+                },
+                "year": {
+                  "type": "number"
+                },
+                "genres": {
+                  "type": "array"
+                }
+              }
+            },
+            "category": "nested-object",
+            "difficulty": "medium",
+            "taskType": "json"
+          },
+          "inputTokens": 128,
+          "outputTokens": 159,
+          "latencyMs": 10,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"title\": \"Dune\",\n  \"author\": {\n    \"firstName\": \"Frank\",\n    \"lastName\": \"Herbert\"\n  },\n  \"year\": 1965,\n  \"genres\": [\n    \"science fiction\",\n    \"adventure\"\n  ]\n}",
+          "createdAt": "2026-08-19T08:50:44.000Z"
+        },
+        {
+          "id": "res_ad28cc6cbebd",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-006",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "state": "green",
+              "duration_seconds": 45,
+              "blinking": false
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "state",
+                "duration_seconds",
+                "blinking"
+              ],
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "red",
+                    "yellow",
+                    "green"
+                  ]
+                },
+                "duration_seconds": {
+                  "type": "number"
+                },
+                "blinking": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON object describing a traffic light with fields: 'state' (must be one of 'red', 'yellow', 'green'), 'duration_seconds' (number), 'blinking' (boolean set to false). The light is currently green for 45 seconds. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "state",
+                "duration_seconds",
+                "blinking"
+              ],
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "red",
+                    "yellow",
+                    "green"
+                  ]
+                },
+                "duration_seconds": {
+                  "type": "number"
+                },
+                "blinking": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "category": "enum-constraint",
+            "difficulty": "medium",
+            "taskType": "json"
+          },
+          "inputTokens": 112,
+          "outputTokens": 129,
+          "latencyMs": 10,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"state\": \"green\",\n  \"duration_seconds\": 45,\n  \"blinking\": false\n}",
+          "createdAt": "2026-08-19T08:50:44.019Z"
+        },
+        {
+          "id": "res_eb952a6a3480",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-007",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "company": "TechCorp",
+              "ceo": {
+                "name": "Alice",
+                "title": "CEO",
+                "reports": [
+                  {
+                    "name": "Bob",
+                    "title": "VP Engineering",
+                    "reports": [
+                      {
+                        "name": "Charlie",
+                        "title": "Senior Dev",
+                        "reports": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Diana",
+                    "title": "VP Sales",
+                    "reports": []
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "company",
+                "ceo"
+              ],
+              "properties": {
+                "company": {
+                  "type": "string"
+                },
+                "ceo": {
+                  "type": "object"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON object for a company org chart. Fields: 'company' (string: 'TechCorp'), 'ceo' (object with 'name' string and 'reports' array). The CEO is 'Alice'. She has 2 reports: 'Bob' (VP Engineering, with one report 'Charlie' who is a Senior Dev with empty reports) and 'Diana' (VP Sales, with empty reports). Each person object must have 'name' (string), 'title' (string), and 'reports' (array of person objects). Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "company",
+                "ceo"
+              ],
+              "properties": {
+                "company": {
+                  "type": "string"
+                },
+                "ceo": {
+                  "type": "object"
+                }
+              }
+            },
+            "category": "deep-nesting",
+            "difficulty": "hard",
+            "taskType": "json"
+          },
+          "inputTokens": 204,
+          "outputTokens": 9027,
+          "latencyMs": 7,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"company\": \"TechCorp\",\n  \"ceo\": {\n    \"name\": \"Alice\",\n    \"title\": \"CEO\",\n    \"reports\": [\n      {\n        \"name\": \"Bob\",\n        \"title\": \"VP Engineering\",\n        \"reports\": [\n          {\n            \"name\": \"Charlie\",\n            \"title\": \"Senior Dev\",\n            \"reports\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"Diana\",\n        \"title\": \"VP Sales\",\n        \"reports\": []\n      }\n    ]\n  }\n}",
+          "createdAt": "2026-08-19T08:50:44.038Z"
+        },
+        {
+          "id": "res_35c570875013",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-008",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "id": 42,
+              "active": true,
+              "tags": [
+                "alpha",
+                "beta"
+              ],
+              "score": 3.14,
+              "label": "test",
+              "metadata": null
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "active",
+                "tags",
+                "score",
+                "label",
+                "metadata"
+              ],
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "active": {
+                  "type": "boolean"
+                },
+                "tags": {
+                  "type": "array"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON object with exactly these fields and types — no extras. 'id' (integer: 42), 'active' (boolean: true), 'tags' (array: [\"alpha\", \"beta\"]), 'score' (number: 3.14), 'label' (string: 'test'), 'metadata' (null). Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "id",
+                "active",
+                "tags",
+                "score",
+                "label",
+                "metadata"
+              ],
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "active": {
+                  "type": "boolean"
+                },
+                "tags": {
+                  "type": "array"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
+            },
+            "category": "strict-types",
+            "difficulty": "hard",
+            "taskType": "json"
+          },
+          "inputTokens": 127,
+          "outputTokens": 221,
+          "latencyMs": 14,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"id\": 42,\n  \"active\": true,\n  \"tags\": [\"alpha\", \"beta\"],\n  \"score\": 3.14,\n  \"label\": \"test\",\n  \"metadata\": null\n}",
+          "createdAt": "2026-08-19T08:50:44.070Z"
+        },
+        {
+          "id": "res_4c4a72abd4c4",
+          "runId": "run_20260819_155043_5fcb",
+          "taskId": "struct-009",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "airline": "Delta",
+              "flight_number": "DL509",
+              "departure": {
+                "airport": "JFK",
+                "time": "2025-03-15T08:30:00Z"
+              },
+              "arrival": {
+                "airport": "LAX",
+                "time": "2025-03-15T11:45:00Z"
+              },
+              "passengers": [
+                {
+                  "name": "John Smith",
+                  "seat": "14A"
+                }
+              ],
+              "class": "economy"
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "airline",
+                "flight_number",
+                "departure",
+                "arrival",
+                "passengers",
+                "class"
+              ],
+              "properties": {
+                "airline": {
+                  "type": "string"
+                },
+                "flight_number": {
+                  "type": "string"
+                },
+                "departure": {
+                  "type": "object"
+                },
+                "arrival": {
+                  "type": "object"
+                },
+                "passengers": {
+                  "type": "array"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "economy",
+                    "business",
+                    "first"
+                  ]
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Return a JSON object for a flight booking with these exact top-level fields: 'airline' (string: 'Delta'), 'flight_number' (string: 'DL509'), 'departure' (object: {'airport': 'JFK', 'time': '2025-03-15T08:30:00Z'}), 'arrival' (object: {'airport': 'LAX', 'time': '2025-03-15T11:45:00Z'}), 'passengers' (array of objects: [{'name': 'John Smith', 'seat': '14A'}]), 'class' (top-level string: 'economy'). Return only the JSON object.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "airline",
+                "flight_number",
+                "departure",
+                "arrival",
+                "passengers",
+                "class"
+              ],
+              "properties": {
+                "airline": {
+                  "type": "string"
+                },
+                "flight_number": {
+                  "type": "string"
+                },
+                "departure": {
+                  "type": "object"
+                },
+                "arrival": {
+                  "type": "object"
+                },
+                "passengers": {
+                  "type": "array"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "economy",
+                    "business",
+                    "first"
+                  ]
+                }
+              }
+            },
+            "category": "multi-constraint",
+            "difficulty": "hard",
+            "taskType": "json"
+          },
+          "inputTokens": 245,
+          "outputTokens": 677,
+          "latencyMs": 9695,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"airline\": \"Delta\",\n  \"flight_number\": \"DL509\",\n  \"departure\": {\n    \"airport\": \"JFK\",\n    \"time\": \"2025-03-15T08:30:00Z\"\n  },\n  \"arrival\": {\n    \"airport\": \"LAX\",\n    \"time\": \"2025-03-15T11:45:00Z\"\n  },\n  \"passengers\": [\n    {\n      \"name\": \"John Smith\",\n      \"seat\": \"14A\"\n    }\n  ],\n  \"class\": \"economy\"\n}",
+          "createdAt": "2026-08-19T08:50:44.095Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_155043_5fcb",
+        "benchmarkId": "structured/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:87edda3fc3b62130",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 9,
+        "passedTasks": 9,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 1254,
+        "totalOutputTokens": 10944,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 1089,
+        "totalDurationMs": 9914,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T08:50:53.811Z"
+    }
+  ]
+}

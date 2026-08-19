@@ -9,6 +9,22 @@
   },
   {
     "id": "reasoning-002",
+    "type": "exact",
+    "category": "counting",
+    "difficulty": "easy",
+    "prompt": "A farmer has 17 sheep. All but 9 run away. How many sheep does the farmer have left? Answer with only the number.",
+    "expected": "9"
+  },
+  {
+    "id": "reasoning-003",
+    "type": "exact",
+    "category": "temporal",
+    "difficulty": "easy",
+    "prompt": "If it takes 5 machines 5 minutes to make 5 widgets, how many minutes would it take 100 machines to make 100 widgets? Answer with only the number.",
+    "expected": "5"
+  },
+  {
+    "id": "reasoning-004",
     "type": "contains",
     "category": "ordering",
     "difficulty": "medium",
@@ -16,11 +32,43 @@
     "expected": ["E, D, C, A, B"]
   },
   {
-    "id": "reasoning-003",
+    "id": "reasoning-005",
     "type": "exact",
     "category": "truth-teller",
     "difficulty": "medium",
     "prompt": "On an island, knights always tell the truth and knaves always lie. Person A says: 'We are both knaves.' What is Person A (Knight or Knave) and what is Person B (Knight or Knave)? Format your answer exactly as: A is a Knave, B is a Knight",
     "expected": "A is a Knave, B is a Knight"
+  },
+  {
+    "id": "reasoning-006",
+    "type": "exact",
+    "category": "spatial",
+    "difficulty": "medium",
+    "prompt": "You face north. You turn right 90 degrees, then turn right 90 degrees again, then turn left 90 degrees. Which direction are you now facing? Answer with only the cardinal direction.",
+    "expected": "East"
+  },
+  {
+    "id": "reasoning-007",
+    "type": "exact",
+    "category": "constraint-satisfaction",
+    "difficulty": "hard",
+    "prompt": "Three friends (Alex, Blake, Casey) each own a different pet (cat, dog, fish). Alex does not own the cat. Blake does not own the dog. Casey owns the fish. Who owns the cat? Answer with only the name.",
+    "expected": "Blake"
+  },
+  {
+    "id": "reasoning-008",
+    "type": "exact",
+    "category": "multi-step",
+    "difficulty": "hard",
+    "prompt": "A snail is at the bottom of a 30-foot well. Each day it climbs 3 feet, but each night it slides back 2 feet. On which day does the snail reach the top of the well? Answer with only the number.",
+    "expected": "28"
+  },
+  {
+    "id": "reasoning-009",
+    "type": "exact",
+    "category": "probability",
+    "difficulty": "hard",
+    "prompt": "You have two children. One of them is a boy born on a Tuesday. What is the probability that both children are boys? Express your answer as a fraction in simplest form (e.g. 13/27).",
+    "expected": "13/27"
   }
 ]

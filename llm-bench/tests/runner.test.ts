@@ -11,7 +11,7 @@ describe("Benchmark Runner", () => {
   test("runs standard reasoning benchmark with mock model and streams to json", async () => {
     const benchmark = await loadBenchmark("reasoning/v1", "./benchmarks");
 
-    // Smart mock model that returns the right answers for task-001, 002, 003
+    // Smart mock model that returns the right answers for all reasoning tasks
     const model = new MockModel(
       {
         id: "mock-smart",
@@ -22,8 +22,14 @@ describe("Benchmark Runner", () => {
       (req) => {
         const prompt = req.messages.find((m) => m.role === "user")?.content ?? "";
         if (prompt.includes("brothers")) return "1";
+        if (prompt.includes("All but 9")) return "9";
+        if (prompt.includes("5 machines")) return "5";
         if (prompt.includes("runners")) return "E, D, C, A, B";
         if (prompt.includes("knights")) return "A is a Knave, B is a Knight";
+        if (prompt.includes("face north")) return "East";
+        if (prompt.includes("owns the cat")) return "Blake";
+        if (prompt.includes("snail")) return "28";
+        if (prompt.includes("born on a Tuesday")) return "13/27";
         return "unknown";
       }
     );
@@ -40,10 +46,10 @@ describe("Benchmark Runner", () => {
     });
 
     expect(run.status).toBe("completed");
-    expect(run.results.length).toBe(3);
+    expect(run.results.length).toBe(9);
     expect(run.summary?.accuracy).toBe(1.0);
-    expect(run.summary?.totalTasks).toBe(3);
-    expect(run.summary?.passedTasks).toBe(3);
+    expect(run.summary?.totalTasks).toBe(9);
+    expect(run.summary?.passedTasks).toBe(9);
     expect(run.summary?.totalCostUsd).toBeGreaterThan(0);
     expect(streamUpdateCount).toBeGreaterThan(0);
 
@@ -52,7 +58,7 @@ describe("Benchmark Runner", () => {
     expect(fileRuns.length).toBe(1);
     expect(fileRuns[0]?.id).toBe(run.id);
     expect(fileRuns[0]?.status).toBe("completed");
-    expect(fileRuns[0]?.results.length).toBe(3);
+    expect(fileRuns[0]?.results.length).toBe(9);
 
     await rm(testJsonPath, { force: true });
   });

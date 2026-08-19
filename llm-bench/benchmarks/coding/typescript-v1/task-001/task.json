@@ -3,7 +3,7 @@
   "type": "coding",
   "category": "bugfix",
   "difficulty": "easy",
-  "prompt": "Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.",
+  "prompt": "Fix the bugs in `src/userService.ts`: 1) `validateEmail` must accept valid emails with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`). 2) `formatUser` must check `user.isActive`: return `${user.name} <${user.email}>` when `user.isActive` is true, and `[INACTIVE] ${user.name} <${user.email}>` when `user.isActive` is false. Keep the exact `User` interface with `isActive: boolean` and `id: string`.",
   "evaluation": {
     "type": "tests",
     "command": "bun test tests/userService.test.ts"

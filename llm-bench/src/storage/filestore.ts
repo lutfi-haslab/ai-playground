@@ -1,6 +1,18 @@
 import { dirname, resolve, join } from "node:path";
-import { mkdir, readdir } from "node:fs/promises";
+import { mkdir, readdir, rename } from "node:fs/promises";
+import { randomBytes } from "node:crypto";
 import type { Run } from "../core/result";
+
+// Per-file mutex to serialize read-modify-write cycles
+const fileLocks = new Map<string, Promise<void>>();
+
+function withFileLock<T>(path: string, fn: () => Promise<T>): Promise<T> {
+  const resolved = resolve(path);
+  const prev = fileLocks.get(resolved) ?? Promise.resolve();
+  const next = prev.then(fn, fn);
+  fileLocks.set(resolved, next.then(() => {}, () => {}));
+  return next;
+}
 
 export function getDateTimePrefix(date: Date = new Date()): string {
   const y = date.getFullYear();
@@ -32,12 +44,22 @@ export async function loadReportRunsFromFile(jsonPath: string): Promise<Run[]> {
     return [];
   }
 
-  try {
-    const data = await file.json();
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data.runs)) return data.runs;
-  } catch (e: any) {
-    console.error(`Warning: Failed to parse JSON report from ${jsonPath}: ${e.message}`);
+  // Retry once on parse failure — handles transient partial-write reads
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data.runs)) return data.runs;
+      return [];
+    } catch {
+      if (attempt === 0) {
+        const { promise, resolve: wake } = Promise.withResolvers<void>();
+        setTimeout(wake, 50);
+        await promise;
+        continue;
+      }
+    }
   }
 
   return [];
@@ -56,21 +78,26 @@ export async function saveReportRunsToFile(jsonPath: string, runs: Run[]): Promi
     runs,
   };
 
-  await Bun.write(jsonPath, JSON.stringify(payload, null, 2));
+  // Atomic write: temp file → rename
+  const tmpPath = `${jsonPath}.${randomBytes(4).toString("hex")}.tmp`;
+  await Bun.write(tmpPath, JSON.stringify(payload, null, 2));
+  await rename(tmpPath, jsonPath);
 }
 
 export async function appendOrUpdateRunInFile(jsonPath: string, run: Run): Promise<Run[]> {
-  const existingRuns = await loadReportRunsFromFile(jsonPath);
-  const index = existingRuns.findIndex((r) => r.id === run.id);
+  return withFileLock(jsonPath, async () => {
+    const existingRuns = await loadReportRunsFromFile(jsonPath);
+    const index = existingRuns.findIndex((r) => r.id === run.id);
 
-  if (index >= 0) {
-    existingRuns[index] = run;
-  } else {
-    existingRuns.push(run);
-  }
+    if (index >= 0) {
+      existingRuns[index] = run;
+    } else {
+      existingRuns.push(run);
+    }
 
-  await saveReportRunsToFile(jsonPath, existingRuns);
-  return existingRuns;
+    await saveReportRunsToFile(jsonPath, existingRuns);
+    return existingRuns;
+  });
 }
 
 export async function listAllReportFiles(reportsDir: string = "./reports"): Promise<string[]> {

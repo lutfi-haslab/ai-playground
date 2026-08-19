@@ -1,0 +1,33 @@
+{
+  "updatedAt": "2026-08-19T09:06:15.678Z",
+  "totalRuns": 1,
+  "isCompleted": false,
+  "runs": [
+    {
+      "id": "run_20260819_160615_662f",
+      "benchmarkId": "coding/typescript-v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:4730566093aeca26",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "myairouter",
+        "model": "pceay/pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://localhost:20128/v1",
+        "apiKey": "sk-local",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T09:06:15.677Z",
+      "status": "running",
+      "results": []
+    }
+  ]
+}

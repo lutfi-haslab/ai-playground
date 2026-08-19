@@ -90,6 +90,18 @@ describe("Evaluators", () => {
       expect(score.value).toBe(1);
     });
 
+    test("trims leading/trailing whitespace before matching", async () => {
+      const task: StandardTask = {
+        id: "t1",
+        prompt: "",
+        pattern: "^\\* [A-Z]+\\n\\* [A-Z]+$",
+        metadata: { flags: "" },
+      };
+      // Models often emit a leading newline
+      const score = await evaluator.evaluate(task, createDummyResponse("\n* RUST\n* PYTHON\n"));
+      expect(score.passed).toBe(true);
+    });
+
     test("fails when pattern does not match", async () => {
       const task: StandardTask = {
         id: "t1",

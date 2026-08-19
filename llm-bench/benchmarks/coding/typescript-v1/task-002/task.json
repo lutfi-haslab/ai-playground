@@ -3,7 +3,7 @@
   "type": "coding",
   "category": "feature",
   "difficulty": "medium",
-  "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. 'SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate, and round to 2 decimal places.",
+  "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It must return a `CartCalculation` object with `{ subtotal, discount, tax, total }` (all numbers rounded to 2 decimal places). Apply coupon discounts on subtotal ('SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate on the discounted subtotal, and handle empty carts. Do not change the `CartItem` or `CartCalculation` interfaces or function signature.",
   "evaluation": {
     "type": "tests",
     "command": "bun test tests/cart.test.ts"

@@ -1,0 +1,256 @@
+{
+  "updatedAt": "2026-08-19T07:50:20.607Z",
+  "totalRuns": 1,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_145020_8d13",
+      "benchmarkId": "math/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:d5ba7eff301c9c0c",
+      "modelId": "mock-fast",
+      "modelConfig": {
+        "id": "mock-fast",
+        "provider": "mock",
+        "model": "mock-fast",
+        "enabled": true
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T07:50:20.403Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_60f98f894272",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-001",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "125",
+            "actual": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+            "prompt": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+            "category": "arithmetic",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 17,
+          "outputTokens": 17,
+          "latencyMs": 10,
+          "costUsd": 0,
+          "response": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+          "createdAt": "2026-08-19T07:50:20.418Z"
+        },
+        {
+          "id": "res_1cc091a4ba59",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-002",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "33",
+            "actual": "What is 144 / 12 + 7 * 3? Output only the final integer number.",
+            "prompt": "What is 144 / 12 + 7 * 3? Output only the final integer number.",
+            "category": "arithmetic",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 16,
+          "outputTokens": 16,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "What is 144 / 12 + 7 * 3? Output only the final integer number.",
+          "createdAt": "2026-08-19T07:50:20.451Z"
+        },
+        {
+          "id": "res_833588cfef7b",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-003",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "0.75",
+            "actual": "What is 1/4 + 1/2 expressed as a decimal? Output only the number.",
+            "prompt": "What is 1/4 + 1/2 expressed as a decimal? Output only the number.",
+            "category": "fractions",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 17,
+          "outputTokens": 17,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "What is 1/4 + 1/2 expressed as a decimal? Output only the number.",
+          "createdAt": "2026-08-19T07:50:20.467Z"
+        },
+        {
+          "id": "res_f0af328cef91",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-004",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "13",
+            "actual": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+            "prompt": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+            "category": "algebra",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 15,
+          "outputTokens": 15,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+          "createdAt": "2026-08-19T07:50:20.485Z"
+        },
+        {
+          "id": "res_1b743a282e7a",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-005",
+          "modelId": "mock-fast",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "2, 2, 3, 7",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+            "expected": [
+              "2, 2, 3, 7"
+            ],
+            "category": "primes",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 26,
+          "outputTokens": 26,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+          "createdAt": "2026-08-19T07:50:20.502Z"
+        },
+        {
+          "id": "res_eff340614663",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-006",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "0",
+            "actual": "What is 247 mod 13? Output only the integer.",
+            "prompt": "What is 247 mod 13? Output only the integer.",
+            "category": "modular",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 11,
+          "outputTokens": 11,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "What is 247 mod 13? Output only the integer.",
+          "createdAt": "2026-08-19T07:50:20.521Z"
+        },
+        {
+          "id": "res_f66c4e1a1779",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-007",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "126",
+            "actual": "How many ways can you choose 4 items from a set of 9? (i.e., compute 9 choose 4). Output only the integer.",
+            "prompt": "How many ways can you choose 4 items from a set of 9? (i.e., compute 9 choose 4). Output only the integer.",
+            "category": "combinatorics",
+            "difficulty": "hard",
+            "taskType": "exact"
+          },
+          "inputTokens": 27,
+          "outputTokens": 27,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "How many ways can you choose 4 items from a set of 9? (i.e., compute 9 choose 4). Output only the integer.",
+          "createdAt": "2026-08-19T07:50:20.541Z"
+        },
+        {
+          "id": "res_ebca2bf89871",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-008",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "1010",
+            "actual": "What is the sum of the first 20 terms of the arithmetic sequence that starts at 3 with common difference 5? Output only the integer.",
+            "prompt": "What is the sum of the first 20 terms of the arithmetic sequence that starts at 3 with common difference 5? Output only the integer.",
+            "category": "sequences",
+            "difficulty": "hard",
+            "taskType": "exact"
+          },
+          "inputTokens": 33,
+          "outputTokens": 33,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "What is the sum of the first 20 terms of the arithmetic sequence that starts at 3 with common difference 5? Output only the integer.",
+          "createdAt": "2026-08-19T07:50:20.558Z"
+        },
+        {
+          "id": "res_6d59c469d795",
+          "runId": "run_20260819_145020_8d13",
+          "taskId": "math-009",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "expected": "13",
+            "actual": "A right triangle has legs of length 5 and 12. What is the length of the hypotenuse? Output only the integer.",
+            "prompt": "A right triangle has legs of length 5 and 12. What is the length of the hypotenuse? Output only the integer.",
+            "category": "geometry",
+            "difficulty": "hard",
+            "taskType": "exact"
+          },
+          "inputTokens": 27,
+          "outputTokens": 27,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "A right triangle has legs of length 5 and 12. What is the length of the hypotenuse? Output only the integer.",
+          "createdAt": "2026-08-19T07:50:20.586Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_145020_8d13",
+        "benchmarkId": "math/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:d5ba7eff301c9c0c",
+        "modelId": "mock-fast",
+        "totalTasks": 9,
+        "passedTasks": 1,
+        "failedTasks": 8,
+        "accuracy": 0.1111111111111111,
+        "averageScore": 0.1111111111111111,
+        "totalInputTokens": 189,
+        "totalOutputTokens": 189,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 11,
+        "totalDurationMs": 203,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T07:50:20.606Z"
+    }
+  ]
+}

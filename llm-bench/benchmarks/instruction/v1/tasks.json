@@ -4,14 +4,15 @@
     "type": "regex",
     "category": "formatting",
     "difficulty": "easy",
-    "prompt": "List 3 programming languages. Each language must be on a new line starting with a bullet '* ' and written in all capital letters. No other text or markdown.",
-    "pattern": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$"
+    "prompt": "List exactly 3 programming languages, one per line. Each line must start with '* ' followed by the language name in ALL CAPITAL LETTERS. Output nothing else.",
+    "pattern": "^(\\* [A-Z0-9+#. -]+\\n){2}\\* [A-Z0-9+#. -]+\\s*$",
+    "metadata": { "flags": "" }
   },
   {
     "id": "instruction-002",
     "type": "exact",
     "category": "constraints",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "prompt": "Repeat the phrase 'LLM Benchmark Framework' in reverse word order. Do not include any explanation.",
     "expected": "Framework Benchmark LLM"
   },
@@ -22,5 +23,56 @@
     "difficulty": "easy",
     "prompt": "Output the words 'ALPHA', 'BETA', 'GAMMA' separated by ' === ' with no trailing punctuation.",
     "expected": ["ALPHA === BETA === GAMMA"]
+  },
+  {
+    "id": "instruction-004",
+    "type": "regex",
+    "category": "counting",
+    "difficulty": "medium",
+    "prompt": "Write exactly 5 sentences about the color blue. Each sentence must end with a period. Number each sentence starting from 1 (e.g. '1. ...'). Output nothing else.",
+    "pattern": "^1\\. .+\\.\\n2\\. .+\\.\\n3\\. .+\\.\\n4\\. .+\\.\\n5\\. .+\\.\\s*$",
+    "metadata": { "flags": "" }
+  },
+  {
+    "id": "instruction-005",
+    "type": "regex",
+    "category": "negative-constraint",
+    "difficulty": "medium",
+    "prompt": "Explain what water is in exactly 2 sentences. Do NOT use the letter 'e' anywhere in your response.",
+    "pattern": "^[^eE]+$"
+  },
+  {
+    "id": "instruction-006",
+    "type": "regex",
+    "category": "format-constraint",
+    "difficulty": "medium",
+    "prompt": "List the numbers 1 through 5, each on its own line, with each number enclosed in square brackets like [1]. Output nothing else.",
+    "pattern": "^\\[1\\]\\n\\[2\\]\\n\\[3\\]\\n\\[4\\]\\n\\[5\\]\\s*$",
+    "metadata": { "flags": "" }
+  },
+  {
+    "id": "instruction-007",
+    "type": "regex",
+    "category": "word-count",
+    "difficulty": "hard",
+    "prompt": "Write a sentence about the moon that contains exactly 10 words. Output only the sentence, no punctuation other than a period at the end.",
+    "pattern": "^\\S+(\\s+\\S+){9}\\.\\s*$"
+  },
+  {
+    "id": "instruction-008",
+    "type": "regex",
+    "category": "multi-constraint",
+    "difficulty": "hard",
+    "prompt": "Write exactly 3 words where each word starts with the letter 'S', the words are separated by hyphens (no spaces), and all letters are lowercase. Output nothing else.",
+    "pattern": "^s[a-z]+-s[a-z]+-s[a-z]+\\s*$",
+    "metadata": { "flags": "" }
+  },
+  {
+    "id": "instruction-009",
+    "type": "regex",
+    "category": "structured-format",
+    "difficulty": "hard",
+    "prompt": "Create a 3-row, 2-column table using pipes and dashes in plain text (no markdown). Columns: 'Name' and 'Age'. Rows: Alice 30, Bob 25, Carol 35. Format:\n| Name | Age |\n| --- | --- |\n| Alice | 30 |\n| Bob | 25 |\n| Carol | 35 |\nOutput exactly this table, nothing else.",
+    "pattern": "\\| *Name *\\| *Age *\\|\\s*\\n\\| *-+ *\\| *-+ *\\|\\s*\\n\\| *Alice *\\| *30 *\\|\\s*\\n\\| *Bob *\\| *25 *\\|\\s*\\n\\| *Carol *\\| *35 *\\|\\s*$"
   }
 ]

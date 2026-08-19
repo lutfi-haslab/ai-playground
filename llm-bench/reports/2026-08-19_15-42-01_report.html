@@ -7,6 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
   <style>
     :root {
       --bg: #090d16;
@@ -319,6 +323,78 @@
     .status-pill.pass { background: rgba(16, 185, 129, 0.15); color: var(--success); }
     .status-pill.fail { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
 
+    /* Task Meta Pills */
+    .task-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .task-pill.difficulty-easy { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .task-pill.difficulty-medium { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+    .task-pill.difficulty-hard { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+    .task-pill.category-pill { background: rgba(99, 102, 241, 0.12); color: #818cf8; }
+    .task-pill.type-pill { background: rgba(59, 130, 246, 0.12); color: #60a5fa; }
+
+    .callout-meta {
+      background: rgba(99, 102, 241, 0.06);
+      border-left-color: var(--primary);
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem 1.5rem;
+      font-size: 0.8rem;
+    }
+    .meta-grid dt {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .meta-grid dd {
+      margin: 0 0 0.35rem 0;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+    }
+
+    .difficulty-breakdown {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .diff-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: var(--mono);
+    }
+    .diff-chip.easy { background: rgba(16, 185, 129, 0.12); color: var(--success); }
+    .diff-chip.medium { background: rgba(245, 158, 11, 0.12); color: var(--warning); }
+    .diff-chip.hard { background: rgba(239, 68, 68, 0.12); color: var(--danger); }
+
+    .filter-select {
+      background: var(--bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      outline: none;
+      cursor: pointer;
+    }
+    .filter-select:focus { border-color: var(--primary); }
+
     /* Task Accordion */
     .task-card {
       background: rgba(0, 0, 0, 0.18);
@@ -390,6 +466,73 @@
       border: 1px solid #1f2937;
     }
 
+    /* Code Viewer */
+    .code-viewer {
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .code-viewer-tabs {
+      display: flex;
+      gap: 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid var(--card-border);
+      overflow-x: auto;
+    }
+    .code-viewer-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .code-viewer-tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+    .code-viewer-tab.active {
+      color: #818cf8;
+      border-bottom-color: var(--primary);
+      background: rgba(99, 102, 241, 0.06);
+    }
+    .code-viewer-panel { display: none; }
+    .code-viewer-panel.active { display: block; }
+    .code-viewer-panel pre {
+      margin: 0;
+      max-height: 600px;
+      overflow: auto;
+    }
+    .code-viewer-panel pre code {
+      margin-top: 0;
+      border: none;
+      border-radius: 0;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      tab-size: 2;
+    }
+    .code-viewer-panel pre code .hljs-ln-numbers {
+      color: var(--text-muted);
+      padding-right: 1rem;
+      user-select: none;
+      opacity: 0.5;
+    }
+    .code-toggle {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+    .code-toggle:hover { color: var(--text); border-color: var(--primary); }
+
     /* Filters */
     .filter-bar {
       display: flex;
@@ -425,10 +568,10 @@
       <div class="header-title">
         <h1>LLM Benchmark Suite</h1>
         <div class="meta-pills">
-          <span class="meta-item">📅 8/19/2026, 12:14:38 PM</span>
+          <span class="meta-item">📅 8/19/2026, 3:42:25 PM</span>
           <span class="meta-item">📚 1 Benchmarks</span>
-          <span class="meta-item">🤖 2 Unique Models</span>
-          <span class="meta-item">🧪 3 Tasks</span>
+          <span class="meta-item">🤖 1 Unique Models</span>
+          <span class="meta-item">🧪 2 Tasks</span>
         </div>
       </div>
       <div class="header-controls">
@@ -443,7 +586,7 @@
     <!-- Navigation Tabs -->
     <div class="nav-tabs">
       <button class="nav-tab active" data-tab="overview" onclick="switchTab('overview', this)">🌐 Global Overview</button>
-      <button class="nav-tab" data-tab="math_v1" onclick="switchTab('math_v1', this)">🧮 math/v1</button>
+      <button class="nav-tab" data-tab="coding_typescript-v1" onclick="switchTab('coding_typescript-v1', this)">💻 coding/typescript-v1</button>
     </div>
 
     <!-- TAB 1: Global Overview -->
@@ -452,22 +595,22 @@
       <div class="kpi-grid">
         <div class="kpi-card green">
           <div class="kpi-label">Top Global Performer</div>
-          <div class="kpi-value">qwen3.7-flash-2026-07-15</div>
+          <div class="kpi-value">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
           <div class="kpi-subtext">100.0% Global Pass Rate</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">Benchmark Suites</div>
           <div class="kpi-value">1</div>
-          <div class="kpi-subtext">3 Total Unique Tasks</div>
+          <div class="kpi-subtext">2 Total Unique Tasks</div>
         </div>
         <div class="kpi-card amber">
           <div class="kpi-label">Models Tested</div>
-          <div class="kpi-value">2</div>
-          <div class="kpi-subtext">qwen3.7-flash-2026-07-15, muse-spark-1.2-contributor...</div>
+          <div class="kpi-value">1</div>
+          <div class="kpi-subtext">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF...</div>
         </div>
         <div class="kpi-card blue">
           <div class="kpi-label">Total Execution Spend</div>
-          <div class="kpi-value">$0.0005</div>
+          <div class="kpi-value">$0.0000</div>
           <div class="kpi-subtext">Across all recorded runs</div>
         </div>
       </div>
@@ -481,7 +624,7 @@
               <tr>
                 <th>Model</th>
                 <th>Overall Pass</th>
-                <th>math/v1</th>
+                <th>coding/typescript-v1</th>
                 <th>Total Cost</th>
                 <th>Avg Latency</th>
               </tr>
@@ -490,34 +633,18 @@
               
                   <tr>
                     <td>
-                      <div class="model-name">qwen3.7-flash-2026-07-15</div>
-                      <div class="model-provider">sumopod</div>
+                      <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                      <div class="model-provider">myairouter</div>
                     </td>
                     <td>
-                      <div style="font-weight: 700;">100% (3/3)</div>
+                      <div style="font-weight: 700;">100% (2/2)</div>
                       <div class="progress-bar-container">
                         <div class="progress-bar" style="width: 100%;"></div>
                       </div>
                     </td>
                     <td><span class="score-cell high">100%</span></td>
-                    <td><span style="font-family:var(--mono);font-weight:600;">$0.0002</span></td>
-                    <td><span style="font-family:var(--mono);">5.86s</span></td>
-                  </tr>
-                  
-                  <tr>
-                    <td>
-                      <div class="model-name">muse-spark-1.2-contributor</div>
-                      <div class="model-provider">meta</div>
-                    </td>
-                    <td>
-                      <div style="font-weight: 700;">100% (3/3)</div>
-                      <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 100%;"></div>
-                      </div>
-                    </td>
-                    <td><span class="score-cell high">100%</span></td>
-                    <td><span style="font-family:var(--mono);font-weight:600;">$0.0003</span></td>
-                    <td><span style="font-family:var(--mono);">5.81s</span></td>
+                    <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                    <td><span style="font-family:var(--mono);">12.19s</span></td>
                   </tr>
                   
             </tbody>
@@ -528,16 +655,17 @@
 
     <!-- TABS 2..N: Benchmark Category Deep Dives -->
     
-        <div id="tab-math_v1" class="tab-pane">
+        <div id="tab-coding_typescript-v1" class="tab-pane">
           <!-- Benchmark Summary Card -->
           <div class="section-card">
-            <div class="section-title">📊 math/v1 — Leaderboard</div>
+            <div class="section-title">📊 coding/typescript-v1 — Leaderboard</div>
             <div class="table-responsive">
               <table>
                 <thead>
                   <tr>
                     <th>Model</th>
                     <th>Pass Rate</th>
+                    <th>By Difficulty</th>
                     <th>Avg Score</th>
                     <th>Cost</th>
                     <th>Avg Latency</th>
@@ -546,38 +674,22 @@
                 </thead>
                 <tbody>
                   
-                      <tr data-session="2026-08-19 12:14">
+                      <tr data-session="2026-08-19 15:42">
                         <td>
-                          <div class="model-name">qwen3.7-flash-2026-07-15</div>
-                          <div class="model-provider">sumopod</div>
+                          <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                          <div class="model-provider">myairouter</div>
                         </td>
                         <td>
-                          <div style="font-weight:700;">100% (3/3)</div>
+                          <div style="font-weight:700;">100% (2/2)</div>
                           <div class="progress-bar-container">
                             <div class="progress-bar" style="width:100%;"></div>
                           </div>
                         </td>
+                        <td><div class="difficulty-breakdown"><span class="diff-chip easy">E: 100% (1/1)</span><span class="diff-chip medium">M: 100% (1/1)</span></div></td>
                         <td><span style="font-family:var(--mono);font-weight:600;">1.00</span></td>
-                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0002</span></td>
-                        <td><span style="font-family:var(--mono);">5.86s</span></td>
-                        <td><span style="font-family:var(--mono);font-size:0.75rem;">124 / 1,563</span></td>
-                      </tr>
-                      
-                      <tr data-session="2026-08-19 12:14">
-                        <td>
-                          <div class="model-name">muse-spark-1.2-contributor</div>
-                          <div class="model-provider">meta</div>
-                        </td>
-                        <td>
-                          <div style="font-weight:700;">100% (3/3)</div>
-                          <div class="progress-bar-container">
-                            <div class="progress-bar" style="width:100%;"></div>
-                          </div>
-                        </td>
-                        <td><span style="font-family:var(--mono);font-weight:600;">1.00</span></td>
-                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0003</span></td>
-                        <td><span style="font-family:var(--mono);">5.81s</span></td>
-                        <td><span style="font-family:var(--mono);font-size:0.75rem;">108 / 1,392</span></td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                        <td><span style="font-family:var(--mono);">12.19s</span></td>
+                        <td><span style="font-family:var(--mono);font-size:0.75rem;">1,770 / 4,796</span></td>
                       </tr>
                       
                 </tbody>
@@ -590,33 +702,59 @@
             <div class="section-title">🔍 Task Breakdown & Deep Dive</div>
             
             <div class="filter-bar">
-              <input type="text" class="filter-input" placeholder="Search task prompt or ID..." oninput="filterTasksInTab('math_v1', this.value)">
+              <input type="text" class="filter-input" placeholder="Search task prompt or ID..." oninput="filterTasksInTab('coding_typescript-v1', this.value)">
+              <select class="filter-select" onchange="filterTasksByDifficulty('coding_typescript-v1', this.value)">
+                <option value="">All Difficulties</option>
+                <option value="easy">Easy</option><option value="medium">Medium</option>
+              </select>
+              <select class="filter-select" onchange="filterTasksByCategory('coding_typescript-v1', this.value)">
+                <option value="">All Categories</option>
+                <option value="bugfix">bugfix</option><option value="feature">feature</option>
+              </select>
             </div>
 
-            <div id="tasks-container-math_v1">
+            <div id="tasks-container-coding_typescript-v1">
               
-                  <div class="task-card" data-task-id="math-001">
+                  <div class="task-card" data-task-id="task-001" data-difficulty="easy" data-category="bugfix">
                     <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
                       <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
-                        <span class="task-title">math-001</span>
+                        <span class="task-title">task-001</span>
                         <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
-                          <span class="status-pill pass">qwen3.7-flash-2026-07-15: ✓ PASS</span><span class="status-pill pass">muse-spark-1.2-contributor: ✓ PASS</span>
+                          <span class="task-pill difficulty-easy">easy</span>
+                          <span class="task-pill category-pill">bugfix</span>
+                          <span class="task-pill type-pill">coding</span>
+                        </div>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
                         </div>
                       </div>
                       <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
                     </div>
                     
                     <div class="task-body">
+                      <!-- Task Metadata -->
+                      <div class="callout callout-meta">
+                        <div class="callout-title" style="color:var(--primary);">🏷️ Task Metadata</div>
+                        <dl class="meta-grid">
+                          <div><dt>Difficulty</dt><dd><span class="task-pill difficulty-easy">easy</span></dd></div>
+                          <div><dt>Category</dt><dd>bugfix</dd></div>
+                          <div><dt>Evaluator Type</dt><dd>coding</dd></div>
+                          
+                          
+                          
+                        </dl>
+                      </div>
+
                       <!-- Master Prompt Box -->
                       <div class="callout callout-prompt">
                         <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
-                        <div style="white-space:pre-wrap;">What is (17 * 23) - (14 * 19)? Output only the final integer number.</div>
+                        <div style="white-space:pre-wrap;">Fix the bugs in `src/userService.ts`: 1) `validateEmail` must accept valid emails with subdomains, dots, and &#039;+&#039; tags (e.g. `alice.smith+tag@mail.example.co.uk`). 2) `formatUser` must return `${name} &lt;${email}&gt;` for active users and `[INACTIVE] ${name} &lt;${email}&gt;` for inactive users. Preserve the existing `User` interface and function signatures.</div>
                       </div>
 
                       <!-- Expected Evaluation Box -->
                       <div class="callout callout-expected">
                         <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
-                        <pre><code>125</code></pre>
+                        <pre><code>bun test tests/userService.test.ts</code></pre>
                       </div>
 
                       <!-- Model Candidate Responses -->
@@ -628,71 +766,111 @@
                             <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
                               <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
                                 <div style="display:flex;align-items:center;gap:0.5rem;">
-                                  <strong>qwen3.7-flash-2026-07-15</strong>
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
                                   <span class="status-pill pass">✓ PASS</span>
                                 </div>
                                 <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
-                                  Score: <b>1.00</b> | Latency: <b>6.91s</b> | Cost: <b>$0.00007</b> | Tokens: In <b>36</b> / Out <b>568</b>
+                                  Score: <b>1.00</b> | Latency: <b>7.83s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>757</b> / Out <b>1536</b>
                                 </div>
                               </div>
 
                               
 
-                              
+                              <div style="font-size:0.8rem;color:var(--success);margin:0.25rem 0;">
+                                      <b>Test Results:</b> 4 passed, 0 failed (Total 4)
+                                    </div>
 
-                              
+                              <div style="font-size:0.8rem;color:#a5b4fc;margin:0.25rem 0;">
+                                      <b>Modified Files:</b> src/userService.ts
+                                    </div>
 
-                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
-                              <pre><code>125</code></pre>
-                            </div>
-                            
-                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
-                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
-                                <div style="display:flex;align-items:center;gap:0.5rem;">
-                                  <strong>muse-spark-1.2-contributor</strong>
-                                  <span class="status-pill pass">✓ PASS</span>
-                                </div>
-                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
-                                  Score: <b>1.00</b> | Latency: <b>4.81s</b> | Cost: <b>$0.00005</b> | Tokens: In <b>29</b> / Out <b>245</b>
-                                </div>
-                              </div>
+                              <div style="margin-top:0.5rem;">
+                                      <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:0.25rem;">Test Output</div>
+                                      <pre><code class="language-plaintext">bun test v1.4.0-canary.1 (681a49bee)
+</code></pre>
+                                    </div>
 
-                              
+                              <div style="margin-top:0.6rem;">
+                                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem;">
+                                      <span style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Extracted Code Files (1)</span>
+                                      <button class="code-toggle" onclick="toggleRaw('raw_task-001_0')">Show Raw Response</button>
+                                    </div>
+                                    <div class="code-viewer" id="cv_task-001_0"><div class="code-viewer-tabs"><button class="code-viewer-tab active" onclick="switchCodeTab('cv_task-001_0', 0, this)">src/userService.ts</button></div><div class="code-viewer-panel active" data-panel="0"><pre><code class="language-typescript">export interface User {
+  id: string;
+  name: string;
+  email: string;
+  isActive: boolean;
+}
 
-                              
+export function validateEmail(email: string): boolean {
+  const pattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  return pattern.test(email);
+}
 
-                              
+export function formatUser(user: User): string {
+  if (!user.isActive) {
+    return `[INACTIVE] ${user.name} &lt;${user.email}&gt;`;
+  }
 
-                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
-                              <pre><code>125</code></pre>
+  return `${user.name} &lt;${user.email}&gt;`;
+}
+</code></pre></div></div>
+                                    <div id="raw_task-001_0" style="display:none;margin-top:0.5rem;">
+                                      <pre><code class="language-plaintext">
+
+{
+  &quot;files&quot;: {
+    &quot;src/userService.ts&quot;: &quot;export interface User {\n  id: string;\n  name: string;\n  email: string;\n  isActive: boolean;\n}\n\nexport function validateEmail(email: string): boolean {\n  const pattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$/;\n  return pattern.test(email);\n}\n\nexport function formatUser(user: User): string {\n  if (!user.isActive) {\n    return `[INACTIVE] ${user.name} &lt;${user.email}&gt;`;\n  }\n\n  return `${user.name} &lt;${user.email}&gt;`;\n}\n&quot;
+  }
+}</code></pre>
+                                    </div>
+                                  </div>
                             </div>
                             
                       </div>
                     </div>
                   </div>
                   
-                  <div class="task-card" data-task-id="math-002">
+                  <div class="task-card" data-task-id="task-002" data-difficulty="medium" data-category="feature">
                     <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
                       <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
-                        <span class="task-title">math-002</span>
+                        <span class="task-title">task-002</span>
                         <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
-                          <span class="status-pill pass">qwen3.7-flash-2026-07-15: ✓ PASS</span><span class="status-pill pass">muse-spark-1.2-contributor: ✓ PASS</span>
+                          <span class="task-pill difficulty-medium">medium</span>
+                          <span class="task-pill category-pill">feature</span>
+                          <span class="task-pill type-pill">coding</span>
+                        </div>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
                         </div>
                       </div>
                       <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
                     </div>
                     
                     <div class="task-body">
+                      <!-- Task Metadata -->
+                      <div class="callout callout-meta">
+                        <div class="callout-title" style="color:var(--primary);">🏷️ Task Metadata</div>
+                        <dl class="meta-grid">
+                          <div><dt>Difficulty</dt><dd><span class="task-pill difficulty-medium">medium</span></dd></div>
+                          <div><dt>Category</dt><dd>feature</dd></div>
+                          <div><dt>Evaluator Type</dt><dd>coding</dd></div>
+                          
+                          
+                          
+                        </dl>
+                      </div>
+
                       <!-- Master Prompt Box -->
                       <div class="callout callout-prompt">
                         <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
-                        <div style="white-space:pre-wrap;">Solve for x: 3x + 7 = 5x - 19. Output only the value of x.</div>
+                        <div style="white-space:pre-wrap;">Implement the `calculateCartTotal` function in `src/cart.ts`. It must return a `CartCalculation` object with `{ subtotal, discount, tax, total }` (all numbers rounded to 2 decimal places). Apply coupon discounts on subtotal (&#039;SAVE10&#039; for 10% off, &#039;FLAT5&#039; for $5 off), apply sales tax rate on the discounted subtotal, and handle empty carts. Do not change the `CartItem` or `CartCalculation` interfaces or function signature.</div>
                       </div>
 
                       <!-- Expected Evaluation Box -->
                       <div class="callout callout-expected">
                         <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
-                        <pre><code>13</code></pre>
+                        <pre><code>bun test tests/cart.test.ts</code></pre>
                       </div>
 
                       <!-- Model Candidate Responses -->
@@ -704,124 +882,98 @@
                             <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
                               <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
                                 <div style="display:flex;align-items:center;gap:0.5rem;">
-                                  <strong>qwen3.7-flash-2026-07-15</strong>
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
                                   <span class="status-pill pass">✓ PASS</span>
                                 </div>
                                 <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
-                                  Score: <b>1.00</b> | Latency: <b>3.02s</b> | Cost: <b>$0.00005</b> | Tokens: In <b>37</b> / Out <b>346</b>
+                                  Score: <b>1.00</b> | Latency: <b>16.55s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>1013</b> / Out <b>3260</b>
                                 </div>
                               </div>
 
                               
 
-                              
+                              <div style="font-size:0.8rem;color:var(--success);margin:0.25rem 0;">
+                                      <b>Test Results:</b> 4 passed, 0 failed (Total 4)
+                                    </div>
 
-                              
+                              <div style="font-size:0.8rem;color:#a5b4fc;margin:0.25rem 0;">
+                                      <b>Modified Files:</b> src/cart.ts
+                                    </div>
 
-                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
-                              <pre><code>13</code></pre>
-                            </div>
-                            
-                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
-                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
-                                <div style="display:flex;align-items:center;gap:0.5rem;">
-                                  <strong>muse-spark-1.2-contributor</strong>
-                                  <span class="status-pill pass">✓ PASS</span>
-                                </div>
-                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
-                                  Score: <b>1.00</b> | Latency: <b>4.29s</b> | Cost: <b>$0.00005</b> | Tokens: In <b>32</b> / Out <b>253</b>
-                                </div>
-                              </div>
+                              <div style="margin-top:0.5rem;">
+                                      <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:0.25rem;">Test Output</div>
+                                      <pre><code class="language-plaintext">bun test v1.4.0-canary.1 (681a49bee)
+</code></pre>
+                                    </div>
 
-                              
+                              <div style="margin-top:0.6rem;">
+                                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.3rem;">
+                                      <span style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;">Extracted Code Files (1)</span>
+                                      <button class="code-toggle" onclick="toggleRaw('raw_task-002_0')">Show Raw Response</button>
+                                    </div>
+                                    <div class="code-viewer" id="cv_task-002_0"><div class="code-viewer-tabs"><button class="code-viewer-tab active" onclick="switchCodeTab('cv_task-002_0', 0, this)">src/cart.ts</button></div><div class="code-viewer-panel active" data-panel="0"><pre><code class="language-typescript">export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
 
-                              
+export interface CartCalculation {
+  subtotal: number;
+  discount: number;
+  tax: number;
+  total: number;
+}
 
-                              
+function roundTo2Decimals(value: number): number {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
+}
 
-                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
-                              <pre><code>13</code></pre>
-                            </div>
-                            
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="task-card" data-task-id="math-003">
-                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
-                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
-                        <span class="task-title">math-003</span>
-                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
-                          <span class="status-pill pass">qwen3.7-flash-2026-07-15: ✓ PASS</span><span class="status-pill pass">muse-spark-1.2-contributor: ✓ PASS</span>
-                        </div>
-                      </div>
-                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
-                    </div>
-                    
-                    <div class="task-body">
-                      <!-- Master Prompt Box -->
-                      <div class="callout callout-prompt">
-                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
-                        <div style="white-space:pre-wrap;">What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)</div>
-                      </div>
+export function calculateCartTotal(
+  items: CartItem[],
+  couponCode?: string,
+  taxRate: number = 0.08
+): CartCalculation {
+  const subtotalRaw = items.reduce((sum, item) =&gt; sum + item.price * item.quantity, 0);
+  const subtotal = roundTo2Decimals(subtotalRaw);
 
-                      <!-- Expected Evaluation Box -->
-                      <div class="callout callout-expected">
-                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
-                        <pre><code>[
-  &quot;2, 2, 3, 7&quot;
-]</code></pre>
-                      </div>
+  if (subtotalRaw === 0) {
+    return {
+      subtotal: 0,
+      discount: 0,
+      tax: 0,
+      total: 0,
+    };
+  }
 
-                      <!-- Model Candidate Responses -->
-                      <div style="margin-top:1rem;">
-                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
-                          Model Candidate Outputs
-                        </div>
-                        
-                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
-                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
-                                <div style="display:flex;align-items:center;gap:0.5rem;">
-                                  <strong>qwen3.7-flash-2026-07-15</strong>
-                                  <span class="status-pill pass">✓ PASS</span>
-                                </div>
-                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
-                                  Score: <b>1.00</b> | Latency: <b>7.67s</b> | Cost: <b>$0.00009</b> | Tokens: In <b>51</b> / Out <b>649</b>
-                                </div>
-                              </div>
+  let discount = 0;
+  if (couponCode === &quot;SAVE10&quot;) {
+    discount = roundTo2Decimals(subtotal * 0.1);
+  } else if (couponCode === &quot;FLAT5&quot;) {
+    discount = roundTo2Decimals(Math.min(5, subtotal));
+  }
 
-                              
+  const discountedSubtotal = Math.max(0, subtotal - discount);
+  const tax = roundTo2Decimals(discountedSubtotal * taxRate);
+  const total = roundTo2Decimals(discountedSubtotal + tax);
 
-                              
+  return {
+    subtotal,
+    discount,
+    tax,
+    total,
+  };
+}</code></pre></div></div>
+                                    <div id="raw_task-002_0" style="display:none;margin-top:0.5rem;">
+                                      <pre><code class="language-plaintext">
 
-                              
-
-                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
-                              <pre><code>2, 2, 3, 7</code></pre>
-                            </div>
-                            
-                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
-                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
-                                <div style="display:flex;align-items:center;gap:0.5rem;">
-                                  <strong>muse-spark-1.2-contributor</strong>
-                                  <span class="status-pill pass">✓ PASS</span>
-                                </div>
-                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
-                                  Score: <b>1.00</b> | Latency: <b>8.32s</b> | Cost: <b>$0.00018</b> | Tokens: In <b>47</b> / Out <b>894</b>
-                                </div>
-                              </div>
-
-                              
-
-                              
-
-                              
-
-                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
-                              <pre><code>84 = 2^2 * 3 * 7
-
-* With multiplicity: **2, 2, 3, 7**
-* Distinct: **2, 3, 7**</code></pre>
+{
+  &quot;files&quot;: {
+    &quot;src/cart.ts&quot;: &quot;export interface CartItem {\n  id: string;\n  name: string;\n  price: number;\n  quantity: number;\n}\n\nexport interface CartCalculation {\n  subtotal: number;\n  discount: number;\n  tax: number;\n  total: number;\n}\n\nfunction roundTo2Decimals(value: number): number {\n  return Math.round((value + Number.EPSILON) * 100) / 100;\n}\n\nexport function calculateCartTotal(\n  items: CartItem[],\n  couponCode?: string,\n  taxRate: number = 0.08\n): CartCalculation {\n  const subtotalRaw = items.reduce((sum, item) =&gt; sum + item.price * item.quantity, 0);\n  const subtotal = roundTo2Decimals(subtotalRaw);\n\n  if (subtotalRaw === 0) {\n    return {\n      subtotal: 0,\n      discount: 0,\n      tax: 0,\n      total: 0,\n    };\n  }\n\n  let discount = 0;\n  if (couponCode === \&quot;SAVE10\&quot;) {\n    discount = roundTo2Decimals(subtotal * 0.1);\n  } else if (couponCode === \&quot;FLAT5\&quot;) {\n    discount = roundTo2Decimals(Math.min(5, subtotal));\n  }\n\n  const discountedSubtotal = Math.max(0, subtotal - discount);\n  const tax = roundTo2Decimals(discountedSubtotal * taxRate);\n  const total = roundTo2Decimals(discountedSubtotal + tax);\n\n  return {\n    subtotal,\n    discount,\n    tax,\n    total,\n  };\n}&quot;
+  }
+}</code></pre>
+                                    </div>
+                                  </div>
                             </div>
                             
                       </div>
@@ -897,6 +1049,57 @@
         }
       });
     }
+
+    function filterTasksByDifficulty(tabKey, difficulty) {
+      const container = document.getElementById('tasks-container-' + tabKey);
+      if (!container) return;
+      container.querySelectorAll('.task-card').forEach(card => {
+        const d = card.getAttribute('data-difficulty');
+        if (!difficulty || d === difficulty) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function filterTasksByCategory(tabKey, category) {
+      const container = document.getElementById('tasks-container-' + tabKey);
+      if (!container) return;
+      container.querySelectorAll('.task-card').forEach(card => {
+        const c = card.getAttribute('data-category');
+        if (!category || c === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function switchCodeTab(viewerId, panelIdx, btn) {
+      const viewer = document.getElementById(viewerId);
+      if (!viewer) return;
+      viewer.querySelectorAll('.code-viewer-tab').forEach(t => t.classList.remove('active'));
+      viewer.querySelectorAll('.code-viewer-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = viewer.querySelector('[data-panel="' + panelIdx + '"]');
+      if (panel) panel.classList.add('active');
+    }
+
+    function toggleRaw(rawId) {
+      const el = document.getElementById(rawId);
+      if (!el) return;
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Initialize highlight.js on all code blocks
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof hljs !== 'undefined') {
+        document.querySelectorAll('pre code').forEach(block => {
+          hljs.highlightElement(block);
+        });
+      }
+    });
   </script>
 </body>
 </html>

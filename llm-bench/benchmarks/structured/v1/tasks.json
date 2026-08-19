@@ -19,9 +19,38 @@
   {
     "id": "struct-002",
     "type": "json",
+    "category": "simple-list",
+    "difficulty": "easy",
+    "prompt": "Return a JSON array of the 4 cardinal compass directions as lowercase strings. Return only the JSON array, no other text.",
+    "schema": {
+      "type": "array"
+    },
+    "metadata": {
+      "notes": "Validates basic array generation"
+    }
+  },
+  {
+    "id": "struct-003",
+    "type": "json",
+    "category": "key-value",
+    "difficulty": "easy",
+    "prompt": "Return a JSON object mapping these country codes to country names: 'US' -> 'United States', 'GB' -> 'United Kingdom', 'JP' -> 'Japan'. Return only JSON.",
+    "schema": {
+      "type": "object",
+      "required": ["US", "GB", "JP"],
+      "properties": {
+        "US": { "type": "string" },
+        "GB": { "type": "string" },
+        "JP": { "type": "string" }
+      }
+    }
+  },
+  {
+    "id": "struct-004",
+    "type": "json",
     "category": "invoice",
     "difficulty": "medium",
-    "prompt": "Create an invoice JSON for customer 'Acme Corp' with 2 line items: 'Server Hosting' ($120, qty 2) and 'SSL Certificate' ($50, qty 1), currency 'USD'.",
+    "prompt": "Create a JSON object for an invoice. Customer: 'Acme Corp'. Currency: 'USD'. Items: [{ \"name\": \"Server Hosting\", \"price\": 120, \"qty\": 2 }, { \"name\": \"SSL Certificate\", \"price\": 50, \"qty\": 1 }]. Use exactly the field names 'customer' (string), 'currency' (string), and 'items' (array of objects). Return only JSON.",
     "schema": {
       "type": "object",
       "required": ["customer", "currency", "items"],
@@ -29,6 +58,91 @@
         "customer": { "type": "string" },
         "currency": { "type": "string", "enum": ["USD", "EUR", "GBP"] },
         "items": { "type": "array" }
+      }
+    }
+  },
+  {
+    "id": "struct-005",
+    "type": "json",
+    "category": "nested-object",
+    "difficulty": "medium",
+    "prompt": "Return a JSON object describing a book with these exact fields: 'title' (string), 'author' (object with 'firstName' and 'lastName' strings), 'year' (number), 'genres' (array of strings). Use: Title 'Dune', Author Frank Herbert, Year 1965, Genres science fiction and adventure. Return only JSON.",
+    "schema": {
+      "type": "object",
+      "required": ["title", "author", "year", "genres"],
+      "properties": {
+        "title": { "type": "string" },
+        "author": { "type": "object" },
+        "year": { "type": "number" },
+        "genres": { "type": "array" }
+      }
+    }
+  },
+  {
+    "id": "struct-006",
+    "type": "json",
+    "category": "enum-constraint",
+    "difficulty": "medium",
+    "prompt": "Return a JSON object describing a traffic light with fields: 'state' (must be one of 'red', 'yellow', 'green'), 'duration_seconds' (number), 'blinking' (boolean set to false). The light is currently green for 45 seconds. Return only JSON.",
+    "schema": {
+      "type": "object",
+      "required": ["state", "duration_seconds", "blinking"],
+      "properties": {
+        "state": { "type": "string", "enum": ["red", "yellow", "green"] },
+        "duration_seconds": { "type": "number" },
+        "blinking": { "type": "boolean" }
+      }
+    }
+  },
+  {
+    "id": "struct-007",
+    "type": "json",
+    "category": "deep-nesting",
+    "difficulty": "hard",
+    "prompt": "Return a JSON object for a company org chart. Fields: 'company' (string: 'TechCorp'), 'ceo' (object with 'name' string and 'reports' array). The CEO is 'Alice'. She has 2 reports: 'Bob' (VP Engineering, with one report 'Charlie' who is a Senior Dev with empty reports) and 'Diana' (VP Sales, with empty reports). Each person object must have 'name' (string), 'title' (string), and 'reports' (array of person objects). Return only JSON.",
+    "schema": {
+      "type": "object",
+      "required": ["company", "ceo"],
+      "properties": {
+        "company": { "type": "string" },
+        "ceo": { "type": "object" }
+      }
+    }
+  },
+  {
+    "id": "struct-008",
+    "type": "json",
+    "category": "strict-types",
+    "difficulty": "hard",
+    "prompt": "Return a JSON object with exactly these fields and types — no extras. 'id' (integer: 42), 'active' (boolean: true), 'tags' (array: [\"alpha\", \"beta\"]), 'score' (number: 3.14), 'label' (string: 'test'), 'metadata' (null). Return only JSON.",
+    "schema": {
+      "type": "object",
+      "required": ["id", "active", "tags", "score", "label", "metadata"],
+      "properties": {
+        "id": { "type": "number" },
+        "active": { "type": "boolean" },
+        "tags": { "type": "array" },
+        "score": { "type": "number" },
+        "label": { "type": "string" }
+      }
+    }
+  },
+  {
+    "id": "struct-009",
+    "type": "json",
+    "category": "multi-constraint",
+    "difficulty": "hard",
+    "prompt": "Return a JSON object for a flight booking with these exact top-level fields: 'airline' (string: 'Delta'), 'flight_number' (string: 'DL509'), 'departure' (object: {'airport': 'JFK', 'time': '2025-03-15T08:30:00Z'}), 'arrival' (object: {'airport': 'LAX', 'time': '2025-03-15T11:45:00Z'}), 'passengers' (array of objects: [{'name': 'John Smith', 'seat': '14A'}]), 'class' (top-level string: 'economy'). Return only the JSON object.",
+    "schema": {
+      "type": "object",
+      "required": ["airline", "flight_number", "departure", "arrival", "passengers", "class"],
+      "properties": {
+        "airline": { "type": "string" },
+        "flight_number": { "type": "string" },
+        "departure": { "type": "object" },
+        "arrival": { "type": "object" },
+        "passengers": { "type": "array" },
+        "class": { "type": "string", "enum": ["economy", "business", "first"] }
       }
     }
   }

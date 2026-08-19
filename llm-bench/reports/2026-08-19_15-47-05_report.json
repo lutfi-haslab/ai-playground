@@ -1,0 +1,172 @@
+{
+  "updatedAt": "2026-08-19T08:47:56.838Z",
+  "totalRuns": 1,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_154705_1f05",
+      "benchmarkId": "structured/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:f955d318654ae178",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "myairouter",
+        "model": "pceay/pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://localhost:20128/v1",
+        "apiKey": "sk-local",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1,
+        "filterTasks": [
+          "struct-009"
+        ]
+      },
+      "startedAt": "2026-08-19T08:47:05.485Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_01fd13839974",
+          "runId": "run_20260819_154705_1f05",
+          "taskId": "struct-009",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "parsed": {
+              "airline": "American Airlines",
+              "flight_number": "AA1234",
+              "departure": {
+                "airport": "JFK",
+                "time": "2025-03-15T09:00:00Z"
+              },
+              "arrival": {
+                "airport": "LAX",
+                "time": "2025-03-15T11:45:00Z"
+              },
+              "passenger": {
+                "name": "John Smith",
+                "seat": "14A",
+                "class": "economy"
+              }
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "airline",
+                "flight_number",
+                "departure",
+                "arrival",
+                "passengers",
+                "class"
+              ],
+              "properties": {
+                "airline": {
+                  "type": "string"
+                },
+                "flight_number": {
+                  "type": "string"
+                },
+                "departure": {
+                  "type": "object"
+                },
+                "arrival": {
+                  "type": "object"
+                },
+                "passengers": {
+                  "type": "array"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "economy",
+                    "business",
+                    "first"
+                  ]
+                }
+              }
+            },
+            "validationErrors": [
+              "Missing required property: 'passengers'",
+              "Missing required property: 'class'"
+            ],
+            "prompt": "Return a JSON object for a flight booking. Required fields: 'airline' (string), 'flight_number' (string matching pattern like 'AA1234'), 'departure' (object with 'airport' string and 'time' string in ISO 8601 format), 'arrival' (object with 'airport' string and 'time' string in ISO 8601 format), 'passengers' (array of objects each with 'name' string and 'seat' string), 'class' (must be one of 'economy', 'business', 'first'). Book: Delta flight DL509, JFK to LAX, departing 2025-03-15T08:30:00Z arriving 2025-03-15T11:45:00Z, passenger John Smith seat 14A, economy class. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "airline",
+                "flight_number",
+                "departure",
+                "arrival",
+                "passengers",
+                "class"
+              ],
+              "properties": {
+                "airline": {
+                  "type": "string"
+                },
+                "flight_number": {
+                  "type": "string"
+                },
+                "departure": {
+                  "type": "object"
+                },
+                "arrival": {
+                  "type": "object"
+                },
+                "passengers": {
+                  "type": "array"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "economy",
+                    "business",
+                    "first"
+                  ]
+                }
+              }
+            },
+            "category": "multi-constraint",
+            "difficulty": "hard",
+            "taskType": "json"
+          },
+          "inputTokens": 222,
+          "outputTokens": 9851,
+          "latencyMs": 51294,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"airline\": \"American Airlines\",\n  \"flight_number\": \"AA1234\",\n  \"departure\": {\n    \"airport\": \"JFK\",\n    \"time\": \"2025-03-15T09:00:00Z\"\n  },\n  \"arrival\": {\n    \"airport\": \"LAX\",\n    \"time\": \"2025-03-15T11:45:00Z\"\n  },\n  \"passenger\": {\n    \"name\": \"John Smith\",\n    \"seat\": \"14A\",\n    \"class\": \"economy\"\n  }\n}",
+          "error": "Missing required property: 'passengers'; Missing required property: 'class'",
+          "createdAt": "2026-08-19T08:47:05.500Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_154705_1f05",
+        "benchmarkId": "structured/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:f955d318654ae178",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 1,
+        "passedTasks": 0,
+        "failedTasks": 1,
+        "accuracy": 0,
+        "averageScore": 0,
+        "totalInputTokens": 222,
+        "totalOutputTokens": 9851,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 51294,
+        "totalDurationMs": 51353,
+        "errorRate": 1,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T08:47:56.838Z"
+    }
+  ]
+}

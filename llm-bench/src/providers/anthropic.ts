@@ -88,20 +88,32 @@ export class AnthropicModel implements Model {
       throw error;
     }
 
-    const data = (await response.json()) as any;
+    let data: Record<string, unknown> | null = null;
+    try {
+      data = (await response.json()) as Record<string, unknown>;
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      throw new Error(`Anthropic returned invalid JSON: ${msg}`);
+    }
+
+    if (!data || typeof data !== "object") {
+      throw new Error("Anthropic returned empty or invalid response object");
+    }
+
     let text = "";
     if (Array.isArray(data.content)) {
-      for (const block of data.content) {
-        if (block.type === "text") {
+      for (const block of data.content as Array<{ type?: string; text?: string }>) {
+        if (block?.type === "text" && typeof block?.text === "string") {
           text += block.text;
         }
       }
     }
 
+    const usageData = data.usage as Record<string, unknown> | undefined;
     const usage: ModelUsage = {
-      inputTokens: data.usage?.input_tokens ?? 0,
-      outputTokens: data.usage?.output_tokens ?? 0,
-      cachedInputTokens: data.usage?.cache_read_input_tokens ?? undefined,
+      inputTokens: (usageData?.input_tokens as number) ?? 0,
+      outputTokens: (usageData?.output_tokens as number) ?? 0,
+      cachedInputTokens: (usageData?.cache_read_input_tokens as number) ?? undefined,
     };
 
     return {
@@ -111,7 +123,7 @@ export class AnthropicModel implements Model {
         latencyMs,
         totalDurationMs: latencyMs,
       },
-      finishReason: data.stop_reason ?? undefined,
+      finishReason: (data.stop_reason as string) ?? undefined,
       raw: data,
     };
   }

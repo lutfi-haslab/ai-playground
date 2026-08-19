@@ -1,0 +1,126 @@
+{
+  "updatedAt": "2026-08-19T08:42:25.791Z",
+  "totalRuns": 1,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_154201_f857",
+      "benchmarkId": "coding/typescript-v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:6500beaed5b4e9f5",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "myairouter",
+        "model": "pceay/pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://localhost:20128/v1",
+        "apiKey": "sk-local",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T08:42:01.246Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_f00509433ae1",
+          "runId": "run_20260819_154201_f857",
+          "taskId": "task-001",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/userService.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\n 4 pass\n 0 fail\n 7 expect() calls\nRan 4 tests across 1 file. [22.00ms]\n",
+            "durationMs": 45,
+            "appliedFiles": [
+              "src/userService.ts"
+            ],
+            "prompt": "Fix the bugs in `src/userService.ts`: 1) `validateEmail` must accept valid emails with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`). 2) `formatUser` must return `${name} <${email}>` for active users and `[INACTIVE] ${name} <${email}>` for inactive users. Preserve the existing `User` interface and function signatures.",
+            "expected": "bun test tests/userService.test.ts",
+            "category": "bugfix",
+            "difficulty": "easy",
+            "taskType": "coding"
+          },
+          "inputTokens": 757,
+          "outputTokens": 1536,
+          "latencyMs": 7829,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"files\": {\n    \"src/userService.ts\": \"export interface User {\\n  id: string;\\n  name: string;\\n  email: string;\\n  isActive: boolean;\\n}\\n\\nexport function validateEmail(email: string): boolean {\\n  const pattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$/;\\n  return pattern.test(email);\\n}\\n\\nexport function formatUser(user: User): string {\\n  if (!user.isActive) {\\n    return `[INACTIVE] ${user.name} <${user.email}>`;\\n  }\\n\\n  return `${user.name} <${user.email}>`;\\n}\\n\"\n  }\n}",
+          "createdAt": "2026-08-19T08:42:01.262Z"
+        },
+        {
+          "id": "res_1d3bd810d079",
+          "runId": "run_20260819_154201_f857",
+          "taskId": "task-002",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/cart.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\n 4 pass\n 0 fail\n 16 expect() calls\nRan 4 tests across 1 file. [12.00ms]\n",
+            "durationMs": 41,
+            "appliedFiles": [
+              "src/cart.ts"
+            ],
+            "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It must return a `CartCalculation` object with `{ subtotal, discount, tax, total }` (all numbers rounded to 2 decimal places). Apply coupon discounts on subtotal ('SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate on the discounted subtotal, and handle empty carts. Do not change the `CartItem` or `CartCalculation` interfaces or function signature.",
+            "expected": "bun test tests/cart.test.ts",
+            "category": "feature",
+            "difficulty": "medium",
+            "taskType": "coding"
+          },
+          "inputTokens": 1013,
+          "outputTokens": 3260,
+          "latencyMs": 16546,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"files\": {\n    \"src/cart.ts\": \"export interface CartItem {\\n  id: string;\\n  name: string;\\n  price: number;\\n  quantity: number;\\n}\\n\\nexport interface CartCalculation {\\n  subtotal: number;\\n  discount: number;\\n  tax: number;\\n  total: number;\\n}\\n\\nfunction roundTo2Decimals(value: number): number {\\n  return Math.round((value + Number.EPSILON) * 100) / 100;\\n}\\n\\nexport function calculateCartTotal(\\n  items: CartItem[],\\n  couponCode?: string,\\n  taxRate: number = 0.08\\n): CartCalculation {\\n  const subtotalRaw = items.reduce((sum, item) => sum + item.price * item.quantity, 0);\\n  const subtotal = roundTo2Decimals(subtotalRaw);\\n\\n  if (subtotalRaw === 0) {\\n    return {\\n      subtotal: 0,\\n      discount: 0,\\n      tax: 0,\\n      total: 0,\\n    };\\n  }\\n\\n  let discount = 0;\\n  if (couponCode === \\\"SAVE10\\\") {\\n    discount = roundTo2Decimals(subtotal * 0.1);\\n  } else if (couponCode === \\\"FLAT5\\\") {\\n    discount = roundTo2Decimals(Math.min(5, subtotal));\\n  }\\n\\n  const discountedSubtotal = Math.max(0, subtotal - discount);\\n  const tax = roundTo2Decimals(discountedSubtotal * taxRate);\\n  const total = roundTo2Decimals(discountedSubtotal + tax);\\n\\n  return {\\n    subtotal,\\n    discount,\\n    tax,\\n    total,\\n  };\\n}\"\n  }\n}",
+          "createdAt": "2026-08-19T08:42:09.175Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_154201_f857",
+        "benchmarkId": "coding/typescript-v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:6500beaed5b4e9f5",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 2,
+        "passedTasks": 2,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 1770,
+        "totalOutputTokens": 4796,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 12188,
+        "totalDurationMs": 24545,
+        "errorRate": 0,
+        "retryCount": 0,
+        "codingMetrics": {
+          "totalTests": 8,
+          "testsPassed": 8,
+          "testsFailed": 0
+        }
+      },
+      "finishedAt": "2026-08-19T08:42:25.791Z"
+    }
+  ]
+}

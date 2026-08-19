@@ -82,7 +82,8 @@ export async function applyFileChanges(
   const normalizedWorkspace = resolve(workspacePath);
 
   for (const [relPath, content] of Object.entries(files)) {
-    const cleanRelPath = normalize(relPath).replace(/^(\.\.[\/\\])+/, "");
+    const sanitizedRelPath = relPath.replace(/^[\/\s#*]+/, "").replace(/^(\.\.[\/\\])+/, "");
+    const cleanRelPath = normalize(sanitizedRelPath);
     const targetPath = resolve(normalizedWorkspace, cleanRelPath);
 
     // Security check: ensure targetPath is within workspacePath
@@ -159,8 +160,9 @@ export async function buildCodingPrompt(task: CodingTask): Promise<string> {
 
   prompt +=
     "### Instructions:\n" +
-    "Provide the fixed or updated code for the project files.\n" +
-    "You MUST respond ONLY with a structured JSON object containing a `files` map with the relative path as key and full file content as value.\n\n" +
+    "1. Provide the fixed or updated code for the project files.\n" +
+    "2. Preserve all existing TypeScript interfaces, types, and exported function signatures.\n" +
+    "3. You MUST respond ONLY with a structured JSON object containing a `files` map with the relative path as key and full file content as value.\n\n" +
     "Example format:\n" +
     "```json\n" +
     "{\n" +
@@ -169,6 +171,5 @@ export async function buildCodingPrompt(task: CodingTask): Promise<string> {
     "  }\n" +
     "}\n" +
     "```";
-
   return prompt;
 }

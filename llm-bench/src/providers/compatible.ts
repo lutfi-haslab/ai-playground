@@ -98,20 +98,41 @@ export class OpenAICompatibleModel implements Model {
       throw error;
     }
 
-    const data = (await response.json()) as any;
-    const choice = data.choices?.[0];
-    const text = choice?.message?.content ?? "";
-    const finishReason = choice?.finish_reason;
+    let data: any = null;
+    try {
+      data = await response.json();
+    } catch (e: any) {
+      throw new Error(`Model ${this.id} returned invalid JSON: ${e.message}`);
+    }
 
+    if (!data || typeof data !== "object") {
+      throw new Error(`Model ${this.id} returned empty or invalid response object`);
+    }
+
+    if (data.error) {
+      const errMsg = typeof data.error === "string" ? data.error : data.error.message ?? JSON.stringify(data.error);
+      throw new Error(`Model ${this.id} API error: ${errMsg}`);
+    }
+
+    const choice = (data.choices as Array<Record<string, unknown>>)?.[0];
+    const msg = choice?.message as Record<string, unknown> | undefined;
+    let text = (typeof msg?.content === "string" ? msg.content : "") ?? "";
+    if (!text.trim()) {
+      if (typeof msg?.reasoning === "string" && msg.reasoning.trim()) {
+        text = msg.reasoning;
+      } else if (typeof msg?.reasoning_content === "string" && msg.reasoning_content.trim()) {
+        text = msg.reasoning_content;
+      }
+    }
+    const finishReason = (choice?.finish_reason as string) ?? undefined;
     const usage: ModelUsage = {
-      inputTokens: data.usage?.prompt_tokens ?? 0,
-      outputTokens: data.usage?.completion_tokens ?? 0,
+      inputTokens: data?.usage?.prompt_tokens ?? 0,
+      outputTokens: data?.usage?.completion_tokens ?? 0,
       cachedInputTokens:
-        data.usage?.prompt_tokens_details?.cached_tokens ??
-        data.usage?.cached_tokens ??
+        data?.usage?.prompt_tokens_details?.cached_tokens ??
+        data?.usage?.cached_tokens ??
         undefined,
     };
-
     return {
       text,
       usage,
@@ -195,29 +216,37 @@ export class OpenAICompatibleModel implements Model {
           if (trimmed === "data: [DONE]") {
             continue;
           }
-
           if (trimmed.startsWith("data: ")) {
             try {
-              const data = JSON.parse(trimmed.slice(6));
-              const delta = data.choices?.[0]?.delta?.content;
-              if (delta) {
-                if (firstTokenTime === undefined) {
-                  firstTokenTime = performance.now() - startTime;
-                }
-                yield {
-                  type: "token",
-                  token: delta,
-                };
-              }
+              const rawJson = trimmed.slice(6).trim();
+              if (rawJson && rawJson !== "[DONE]") {
+                const data = JSON.parse(rawJson);
+                if (data && typeof data === "object") {
+                  const delta = (data as Record<string, unknown>).choices as Array<{ delta?: { content?: string; reasoning?: string; reasoning_content?: string } }> | undefined;
+                  const content = delta?.[0]?.delta?.content || delta?.[0]?.delta?.reasoning || delta?.[0]?.delta?.reasoning_content;
+                  if (content) {
+                    if (firstTokenTime === undefined) {
+                      firstTokenTime = performance.now() - startTime;
+                    }
+                    yield {
+                      type: "token",
+                      token: content,
+                    };
+                  }
 
-              if (data.usage) {
-                accumulatedUsage = {
-                  inputTokens: data.usage.prompt_tokens ?? accumulatedUsage.inputTokens,
-                  outputTokens: data.usage.completion_tokens ?? accumulatedUsage.outputTokens,
-                  cachedInputTokens:
-                    data.usage.prompt_tokens_details?.cached_tokens ??
-                    accumulatedUsage.cachedInputTokens,
-                };
+                  const usageData = (data as Record<string, unknown>).usage as Record<string, unknown> | undefined;
+                  if (usageData) {
+                    const details = usageData.prompt_tokens_details as Record<string, unknown> | undefined;
+                    accumulatedUsage = {
+                      inputTokens: (usageData.prompt_tokens as number) ?? accumulatedUsage.inputTokens,
+                      outputTokens: (usageData.completion_tokens as number) ?? accumulatedUsage.outputTokens,
+                      cachedInputTokens:
+                        (details?.cached_tokens as number) ??
+                        (usageData.cached_tokens as number) ??
+                        accumulatedUsage.cachedInputTokens,
+                    };
+                  }
+                }
               }
             } catch {}
           }

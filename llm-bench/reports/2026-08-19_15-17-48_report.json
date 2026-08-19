@@ -1,0 +1,115 @@
+{
+  "updatedAt": "2026-08-19T08:17:48.766Z",
+  "totalRuns": 1,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_151748_dbb3",
+      "benchmarkId": "coding/typescript-v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:97c3c37ef471a52c",
+      "modelId": "mock-fast",
+      "modelConfig": {
+        "id": "mock-fast",
+        "provider": "mock",
+        "model": "mock-fast",
+        "enabled": true
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T08:17:48.649Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_77889497c8a1",
+          "runId": "run_20260819_151748_dbb3",
+          "taskId": "task-001",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0.5,
+          "details": {
+            "command": "bun test tests/userService.test.ts",
+            "exitCode": 1,
+            "passed": 2,
+            "failed": 2,
+            "total": 4,
+            "score": 0.5,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/userService.test.ts:\n 6 |     expect(validateEmail(\"user@example.com\")).toBe(true);\n 7 |     expect(validateEmail(\"invalid-email\")).toBe(false);\n 8 |   });\n 9 | \n10 |   test(\"validates complex emails with subdomains and plus tags\", () => {\n11 |     expect(validateEmail(\"alice.smith+bench@mail.example.co.uk\")).toBe(true);\n                                                                       ^\nerror: expect(received).toBe(expected)\n\nExpected: true\nReceived: false\n\n      at <anonymous> (/private/var/folders/3q/kpt0j40s5cv2sjytx_481l400000gp/T/llm-bench/run_20260819_151748_dbb3/task-001_172bbeb0/tests/userService.test.ts:11:67)\n(fail) userService > validates complex emails with subdomains and plus tags [2.21ms]\n18 |       id: \"u-1\",\n19 |       name: \"Alice\",\n20 |       email: \"alice@example.com\",\n21 |       isActive: true,\n22 |     };\n23 |     expect(formatUser(user)).toBe(\"Alice <alice@example.com>\");\n                                  ^\nerror: expect(received).toBe(expected)\n\nExpected: \"Alice <alice@example.com>\"\nReceived: undefined\n\n      at <anonymous> (/private/var/folders/3q/kpt0j40s5cv2sjytx_481l400000gp/T/llm-bench/run_20260819_151748_dbb3/task-001_172bbeb0/tests/userService.test.ts:23:30)\n(fail) userService > formats active users correctly [0.26ms]\n\n 2 pass\n 2 fail\n 5 expect() calls\nRan 4 tests across 1 file. [13.00ms]\n",
+            "durationMs": 31,
+            "appliedFiles": [],
+            "prompt": "Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.",
+            "expected": "bun test tests/userService.test.ts",
+            "category": "bugfix",
+            "difficulty": "easy",
+            "taskType": "coding"
+          },
+          "inputTokens": 599,
+          "outputTokens": 599,
+          "latencyMs": 10,
+          "costUsd": 0,
+          "response": "Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.\n\n### Current Project Files:\n\n#### tests/userService.test.ts\n```\nimport { test, expect, describe } from \"bun:test\";\nimport { validateEmail, formatUser } from \"../src/userService\";\n\ndescribe(\"userService\", () => {\n  test(\"validates standard emails\", () => {\n    expect(validateEmail(\"user@example.com\")).toBe(true);\n    expect(validateEmail(\"invalid-email\")).toBe(false);\n  });\n\n  test(\"validates complex emails with subdomains and plus tags\", () => {\n    expect(validateEmail(\"alice.smith+bench@mail.example.co.uk\")).toBe(true);\n    expect(validateEmail(\"dev+test@sub.domain.org\")).toBe(true);\n    expect(validateEmail(\"@missinguser.com\")).toBe(false);\n  });\n\n  test(\"formats active users correctly\", () => {\n    const user = {\n      id: \"u-1\",\n      name: \"Alice\",\n      email: \"alice@example.com\",\n      isActive: true,\n    };\n    expect(formatUser(user)).toBe(\"Alice <alice@example.com>\");\n  });\n\n  test(\"formats inactive users correctly\", () => {\n    const user = {\n      id: \"u-2\",\n      name: \"Bob\",\n      email: \"bob@example.com\",\n      isActive: false,\n    };\n    expect(formatUser(user)).toBe(\"[INACTIVE] Bob <bob@example.com>\");\n  });\n});\n\n```\n\n#### package.json\n```\n{\n  \"name\": \"user-service-task\",\n  \"version\": \"1.0.0\",\n  \"type\": \"module\"\n}\n\n```\n\n#### src/userService.ts\n```\nexport interface User {\n  id: string;\n  name: string;\n  email: string;\n  isActive: boolean;\n}\n\nexport function validateEmail(email: string): boolean {\n  // BUGGY implementation: overly strict regex failing subdomains and plus addresses\n  return /^[a-z0-9]+@[a-z0-9]+\\.com$/.test(email);\n}\n\nexport function formatUser(user: User): string {\n  // BUG: inverted condition causing active users to return undefined\n  if (!user.isActive) {\n    return `[INACTIVE] ${user.name} <${user.email}>`;\n  }\n  return undefined as any;\n}\n\n```\n\n### Instructions:\nProvide the fixed or updated code for the project files.\nYou MUST respond ONLY with a structured JSON object containing a `files` map with the relative path as key and full file content as value.\n\nExample format:\n```json\n{\n  \"files\": {\n    \"src/user.ts\": \"export function getUser() { ... }\"\n  }\n}\n```",
+          "createdAt": "2026-08-19T08:17:48.661Z"
+        },
+        {
+          "id": "res_fb99c2a320f3",
+          "runId": "run_20260819_151748_dbb3",
+          "taskId": "task-002",
+          "modelId": "mock-fast",
+          "passed": false,
+          "score": 0.25,
+          "details": {
+            "command": "bun test tests/cart.test.ts",
+            "exitCode": 1,
+            "passed": 1,
+            "failed": 3,
+            "total": 4,
+            "score": 0.25,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/cart.test.ts:\n 7 |     { id: \"item-2\", name: \"Mouse\", price: 25, quantity: 1 },    // 25 -> Subtotal: 125\n 8 |   ];\n 9 | \n10 |   test(\"calculates subtotal and tax without coupon\", () => {\n11 |     const result = calculateCartTotal(sampleItems, undefined, 0.08);\n12 |     expect(result.subtotal).toBe(125);\n                                 ^\nerror: expect(received).toBe(expected)\n\nExpected: 125\nReceived: 0\n\n      at <anonymous> (/private/var/folders/3q/kpt0j40s5cv2sjytx_481l400000gp/T/llm-bench/run_20260819_151748_dbb3/task-002_424aa212/tests/cart.test.ts:12:29)\n(fail) calculateCartTotal > calculates subtotal and tax without coupon [0.28ms]\n15 |     expect(result.total).toBe(135);\n16 |   });\n17 | \n18 |   test(\"applies SAVE10 percentage discount coupon\", () => {\n19 |     const result = calculateCartTotal(sampleItems, \"SAVE10\", 0.08);\n20 |     expect(result.subtotal).toBe(125);\n                                 ^\nerror: expect(received).toBe(expected)\n\nExpected: 125\nReceived: 0\n\n      at <anonymous> (/private/var/folders/3q/kpt0j40s5cv2sjytx_481l400000gp/T/llm-bench/run_20260819_151748_dbb3/task-002_424aa212/tests/cart.test.ts:20:29)\n(fail) calculateCartTotal > applies SAVE10 percentage discount coupon [0.11ms]\n23 |     expect(result.total).toBe(121.5);\n24 |   });\n25 | \n26 |   test(\"applies FLAT5 discount coupon\", () => {\n27 |     const result = calculateCartTotal(sampleItems, \"FLAT5\", 0.10);\n28 |     expect(result.subtotal).toBe(125);\n                                 ^\nerror: expect(received).toBe(expected)\n\nExpected: 125\nReceived: 0\n\n      at <anonymous> (/private/var/folders/3q/kpt0j40s5cv2sjytx_481l400000gp/T/llm-bench/run_20260819_151748_dbb3/task-002_424aa212/tests/cart.test.ts:28:29)\n(fail) calculateCartTotal > applies FLAT5 discount coupon [0.10ms]\n\n 1 pass\n 3 fail\n 7 expect() calls\nRan 4 tests across 1 file. [11.00ms]\n",
+            "durationMs": 28,
+            "appliedFiles": [],
+            "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. 'SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate, and round to 2 decimal places.",
+            "expected": "bun test tests/cart.test.ts",
+            "category": "feature",
+            "difficulty": "medium",
+            "taskType": "coding"
+          },
+          "inputTokens": 668,
+          "outputTokens": 668,
+          "latencyMs": 11,
+          "costUsd": 0,
+          "response": "Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. 'SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate, and round to 2 decimal places.\n\n### Current Project Files:\n\n#### tests/cart.test.ts\n```\nimport { test, expect, describe } from \"bun:test\";\nimport { calculateCartTotal } from \"../src/cart\";\n\ndescribe(\"calculateCartTotal\", () => {\n  const sampleItems = [\n    { id: \"item-1\", name: \"Keyboard\", price: 50, quantity: 2 }, // 100\n    { id: \"item-2\", name: \"Mouse\", price: 25, quantity: 1 },    // 25 -> Subtotal: 125\n  ];\n\n  test(\"calculates subtotal and tax without coupon\", () => {\n    const result = calculateCartTotal(sampleItems, undefined, 0.08);\n    expect(result.subtotal).toBe(125);\n    expect(result.discount).toBe(0);\n    expect(result.tax).toBe(10); // 125 * 0.08\n    expect(result.total).toBe(135);\n  });\n\n  test(\"applies SAVE10 percentage discount coupon\", () => {\n    const result = calculateCartTotal(sampleItems, \"SAVE10\", 0.08);\n    expect(result.subtotal).toBe(125);\n    expect(result.discount).toBe(12.5); // 10% of 125\n    expect(result.tax).toBe(9); // (125 - 12.5) * 0.08 = 112.5 * 0.08 = 9\n    expect(result.total).toBe(121.5);\n  });\n\n  test(\"applies FLAT5 discount coupon\", () => {\n    const result = calculateCartTotal(sampleItems, \"FLAT5\", 0.10);\n    expect(result.subtotal).toBe(125);\n    expect(result.discount).toBe(5);\n    expect(result.tax).toBe(12); // (125 - 5) * 0.10 = 120 * 0.10 = 12\n    expect(result.total).toBe(132);\n  });\n\n  test(\"handles empty cart\", () => {\n    const result = calculateCartTotal([], \"SAVE10\", 0.08);\n    expect(result.subtotal).toBe(0);\n    expect(result.discount).toBe(0);\n    expect(result.tax).toBe(0);\n    expect(result.total).toBe(0);\n  });\n});\n\n```\n\n#### package.json\n```\n{\n  \"name\": \"cart-task\",\n  \"version\": \"1.0.0\",\n  \"type\": \"module\"\n}\n\n```\n\n#### src/cart.ts\n```\nexport interface CartItem {\n  id: string;\n  name: string;\n  price: number;\n  quantity: number;\n}\n\nexport interface CartCalculation {\n  subtotal: number;\n  discount: number;\n  tax: number;\n  total: number;\n}\n\nexport function calculateCartTotal(\n  items: CartItem[],\n  couponCode?: string,\n  taxRate: number = 0.08\n): CartCalculation {\n  // UNIMPLEMENTED STUB\n  return {\n    subtotal: 0,\n    discount: 0,\n    tax: 0,\n    total: 0,\n  };\n}\n\n```\n\n### Instructions:\nProvide the fixed or updated code for the project files.\nYou MUST respond ONLY with a structured JSON object containing a `files` map with the relative path as key and full file content as value.\n\nExample format:\n```json\n{\n  \"files\": {\n    \"src/user.ts\": \"export function getUser() { ... }\"\n  }\n}\n```",
+          "createdAt": "2026-08-19T08:17:48.718Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_151748_dbb3",
+        "benchmarkId": "coding/typescript-v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:97c3c37ef471a52c",
+        "modelId": "mock-fast",
+        "totalTasks": 2,
+        "passedTasks": 0,
+        "failedTasks": 2,
+        "accuracy": 0,
+        "averageScore": 0.375,
+        "totalInputTokens": 1267,
+        "totalOutputTokens": 1267,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 11,
+        "totalDurationMs": 117,
+        "errorRate": 0,
+        "retryCount": 0,
+        "codingMetrics": {
+          "totalTests": 8,
+          "testsPassed": 3,
+          "testsFailed": 5
+        }
+      },
+      "finishedAt": "2026-08-19T08:17:48.766Z"
+    }
+  ]
+}
