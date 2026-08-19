@@ -1,0 +1,156 @@
+{
+  "models": [
+    {
+      "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "provider": "pceay",
+      "model": "pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+      "baseUrl": "http://127.0.0.1:8080/v1",
+      "enabled": true,
+      "pricing": {
+        "input": 0.0,
+        "output": 0.0
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "muse-spark-1.2-contributor",
+      "provider": "meta",
+      "model": "muse-spark-1.2-contributor",
+      "baseUrl": "https://api.meta.ai/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 0.10,
+        "output": 0.20
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "muse-spark-1.2",
+      "provider": "meta",
+      "model": "muse-spark-1.2",
+      "baseUrl": "https://api.meta.ai/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 1.25,
+        "output": 4.25
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "muse-spark-1.1",
+      "provider": "meta",
+      "model": "muse-spark-1.1",
+      "baseUrl": "https://api.meta.ai/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 1.25,
+        "output": 4.25
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "provider": "sumopod",
+      "model": "deepseek-v4-flash",
+      "baseUrl": "https://ai.sumopod.com/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 0.22,
+        "output": 0.66
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "qwen3.7-flash-2026-07-15",
+      "provider": "sumopod",
+      "model": "qwen3.7-flash-2026-07-15",
+      "baseUrl": "https://ai.sumopod.com/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 0.03,
+        "output": 0.13
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "mimo-v2.5",
+      "provider": "sumopod",
+      "model": "mimo-v2.5",
+      "baseUrl": "https://ai.sumopod.com/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 0.14,
+        "output": 0.28
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "gpt-5.6-luna",
+      "provider": "sumopod",
+      "model": "gpt-5.6-luna",
+      "baseUrl": "https://ai.sumopod.com/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 0.20,
+        "output": 1.20
+      },
+      "contextWindow": 256000
+    },
+    {
+      "id": "qwen-coder",
+      "provider": "openrouter",
+      "model": "qwen/qwen-2.5-coder-32b-instruct",
+      "enabled": false,
+      "pricing": {
+        "input": 0.20,
+        "output": 0.80
+      },
+      "contextWindow": 131072
+    },
+    {
+      "id": "claude-sonnet",
+      "provider": "anthropic",
+      "model": "claude-3-5-sonnet-20241022",
+      "enabled": false,
+      "pricing": {
+        "input": 3.00,
+        "output": 15.00
+      },
+      "contextWindow": 200000
+    },
+    {
+      "id": "gpt-4o",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "enabled": false,
+      "pricing": {
+        "input": 2.50,
+        "output": 10.00
+      },
+      "contextWindow": 128000
+    },
+    {
+      "id": "gemini-flash",
+      "provider": "google",
+      "model": "gemini-1.5-flash",
+      "enabled": false,
+      "pricing": {
+        "input": 0.075,
+        "output": 0.30
+      },
+      "contextWindow": 1000000
+    },
+    {
+      "id": "ollama-local",
+      "provider": "compatible",
+      "model": "qwen2.5-coder:7b",
+      "baseUrl": "http://localhost:11434/v1",
+      "enabled": false,
+      "pricing": {
+        "input": 0,
+        "output": 0
+      },
+      "contextWindow": 32768
+    }
+  ]
+}

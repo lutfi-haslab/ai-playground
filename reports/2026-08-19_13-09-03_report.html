@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Benchmark Suite - Unified Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --primary: #6366f1;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #4f46e5;
+      --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 1.5rem;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    /* Live Status Pill */
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: var(--mono);
+    }
+    .live-pill.running {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .live-pill.completed {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .live-pill.running .live-dot {
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .header-title h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--card-bg);
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .theme-toggle:hover { border-color: var(--primary); }
+
+    /* Session Banner */
+    .session-banner {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .session-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+    .session-select {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-family: var(--mono);
+      outline: none;
+      cursor: pointer;
+    }
+    .session-select:focus { border-color: var(--primary); }
+
+    /* Nav Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.5rem;
+      overflow-x: auto;
+    }
+    .nav-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .nav-tab:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .nav-tab.active {
+      background: var(--card-bg);
+      color: #818cf8;
+      border-color: var(--primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--primary-gradient);
+    }
+    .kpi-card.green::before { background: linear-gradient(90deg, #10b981, #059669); }
+    .kpi-card.amber::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    .kpi-card.blue::before { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+    .kpi-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+    .kpi-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .kpi-subtext {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .table-responsive { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    th {
+      padding: 0.65rem 0.85rem;
+      background: rgba(0, 0, 0, 0.15);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--card-border);
+    }
+    td {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--card-border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(99, 102, 241, 0.03); }
+
+    .model-name { font-weight: 700; font-size: 0.9rem; }
+    .model-provider { font-size: 0.72rem; color: var(--text-muted); font-family: var(--mono); }
+
+    .score-cell {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .score-cell.high { color: var(--success); }
+    .score-cell.mid { color: var(--warning); }
+    .score-cell.low { color: var(--danger); }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 0.2rem;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--primary-gradient);
+      border-radius: 3px;
+    }
+
+    /* Status Pills */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: var(--mono);
+    }
+    .status-pill.pass { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .status-pill.fail { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+    /* Task Accordion */
+    .task-card {
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-bottom: 0.85rem;
+      overflow: hidden;
+    }
+    .task-header {
+      padding: 0.85rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.01);
+    }
+    .task-header:hover { background: rgba(99, 102, 241, 0.04); }
+    .task-title {
+      font-weight: 700;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+    }
+    .task-body {
+      padding: 1.1rem;
+      border-top: 1px solid var(--card-border);
+      display: none;
+      background: rgba(0, 0, 0, 0.28);
+    }
+    .task-card.open .task-body { display: block; }
+
+    /* Callout Boxes */
+    .callout {
+      border-radius: 6px;
+      padding: 0.85rem;
+      margin-bottom: 1rem;
+      font-size: 0.83rem;
+      border-left: 3px solid;
+    }
+    .callout-prompt {
+      background: rgba(59, 130, 246, 0.08);
+      border-left-color: var(--info);
+    }
+    .callout-expected {
+      background: rgba(16, 185, 129, 0.08);
+      border-left-color: var(--success);
+    }
+    .callout-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    pre code {
+      display: block;
+      padding: 0.65rem;
+      background: #030712;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      overflow-x: auto;
+      color: #e5e7eb;
+      margin-top: 0.35rem;
+      border: 1px solid #1f2937;
+    }
+
+    /* Filters */
+    .filter-bar {
+      display: flex;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .filter-input {
+      background: var(--bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      outline: none;
+    }
+    .filter-input:focus { border-color: var(--primary); }
+
+    .footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--card-border);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title">
+        <h1>LLM Benchmark Suite</h1>
+        <div class="meta-pills">
+          <span class="meta-item">📅 8/19/2026, 1:11:38 PM</span>
+          <span class="meta-item">📚 5 Benchmarks</span>
+          <span class="meta-item">🤖 1 Unique Models</span>
+          <span class="meta-item">🧪 13 Tasks</span>
+        </div>
+      </div>
+      <div class="header-controls">
+        <div class="live-pill completed">
+          <span class="live-dot"></span>
+          <span id="live-text">✓ Benchmark Complete</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="overview" onclick="switchTab('overview', this)">🌐 Global Overview</button>
+      <button class="nav-tab" data-tab="coding_typescript-v1" onclick="switchTab('coding_typescript-v1', this)">💻 coding/typescript-v1</button><button class="nav-tab" data-tab="instruction_v1" onclick="switchTab('instruction_v1', this)">📝 instruction/v1</button><button class="nav-tab" data-tab="math_v1" onclick="switchTab('math_v1', this)">🧮 math/v1</button><button class="nav-tab" data-tab="reasoning_v1" onclick="switchTab('reasoning_v1', this)">🧠 reasoning/v1</button><button class="nav-tab" data-tab="structured_v1" onclick="switchTab('structured_v1', this)">⚙️ structured/v1</button>
+    </div>
+
+    <!-- TAB 1: Global Overview -->
+    <div id="tab-overview" class="tab-pane active">
+      <!-- Global KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card green">
+          <div class="kpi-label">Top Global Performer</div>
+          <div class="kpi-value">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+          <div class="kpi-subtext">84.6% Global Pass Rate</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Benchmark Suites</div>
+          <div class="kpi-value">5</div>
+          <div class="kpi-subtext">13 Total Unique Tasks</div>
+        </div>
+        <div class="kpi-card amber">
+          <div class="kpi-label">Models Tested</div>
+          <div class="kpi-value">1</div>
+          <div class="kpi-subtext">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF...</div>
+        </div>
+        <div class="kpi-card blue">
+          <div class="kpi-label">Total Execution Spend</div>
+          <div class="kpi-value">$0.0000</div>
+          <div class="kpi-subtext">Across all recorded runs</div>
+        </div>
+      </div>
+
+      <!-- Cross-Benchmark Performance Matrix -->
+      <div class="section-card">
+        <div class="section-title">🏆 Cross-Benchmark Performance Leaderboard</div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Overall Pass</th>
+                <th>coding/typescript-v1</th><th>instruction/v1</th><th>math/v1</th><th>reasoning/v1</th><th>structured/v1</th>
+                <th>Total Cost</th>
+                <th>Avg Latency</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                  <tr>
+                    <td>
+                      <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                      <div class="model-provider">pceay</div>
+                    </td>
+                    <td>
+                      <div style="font-weight: 700;">85% (11/13)</div>
+                      <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 85%;"></div>
+                      </div>
+                    </td>
+                    <td><span class="score-cell high">100%</span></td><td><span class="score-cell mid">67%</span></td><td><span class="score-cell high">100%</span></td><td><span class="score-cell high">100%</span></td><td><span class="score-cell mid">50%</span></td>
+                    <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                    <td><span style="font-family:var(--mono);">74.41s</span></td>
+                  </tr>
+                  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS 2..N: Benchmark Category Deep Dives -->
+    
+        <div id="tab-coding_typescript-v1" class="tab-pane">
+          <!-- Benchmark Summary Card -->
+          <div class="section-card">
+            <div class="section-title">📊 coding/typescript-v1 — Leaderboard</div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Pass Rate</th>
+                    <th>Avg Score</th>
+                    <th>Cost</th>
+                    <th>Avg Latency</th>
+                    <th>Tokens (In / Out)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                      <tr data-session="2026-08-19 13:09">
+                        <td>
+                          <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                          <div class="model-provider">pceay</div>
+                        </td>
+                        <td>
+                          <div style="font-weight:700;">100% (2/2)</div>
+                          <div class="progress-bar-container">
+                            <div class="progress-bar" style="width:100%;"></div>
+                          </div>
+                        </td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">1.00</span></td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                        <td><span style="font-family:var(--mono);">67.21s</span></td>
+                        <td><span style="font-family:var(--mono);font-size:0.75rem;">1,654 / 14,998</span></td>
+                      </tr>
+                      
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Task Breakdown & Deep Dive -->
+          <div class="section-card">
+            <div class="section-title">🔍 Task Breakdown & Deep Dive</div>
+            
+            <div class="filter-bar">
+              <input type="text" class="filter-input" placeholder="Search task prompt or ID..." oninput="filterTasksInTab('coding_typescript-v1', this.value)">
+            </div>
+
+            <div id="tasks-container-coding_typescript-v1">
+              
+                  <div class="task-card" data-task-id="task-001">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">task-001</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and &#039;+&#039; tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>bun test tests/userService.test.ts</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>58.91s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>704</b> / Out <b>6605</b>
+                                </div>
+                              </div>
+
+                              
+
+                              <div style="font-size:0.8rem;color:var(--success);margin:0.25rem 0;">
+                                      <b>Test Results:</b> 4 passed, 0 failed (Total 4)
+                                    </div>
+
+                              <div style="font-size:0.8rem;color:#a5b4fc;margin:0.25rem 0;">
+                                      <b>Modified Files:</b> src/userService.ts
+                                    </div>
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+{
+  &quot;files&quot;: {
+    &quot;src/userService.ts&quot;: &quot;export interface User {\n  id: string;\n  name: string;\n  email: string;\n  isActive: boolean;\n}\n\nexport function validateEmail(email: string): boolean {\n  const emailRegex = /^[A-Za-z0-9_%+-]+(?:[.][A-Za-z0-9_%+-]+)*@[A-Za-z0-9-]+(?:[.][A-Za-z0-9-]+)*[.][A-Za-z]{2,}$/i;\n  return emailRegex.test(email);\n}\n\nexport function formatUser(user: User): string {\n  if (user.isActive) {\n    return `${user.name} &lt;${user.email}&gt;`;\n  }\n  return `[INACTIVE] ${user.name} &lt;${user.email}&gt;`;\n}\n&quot;
+  }
+}</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="task-002">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">task-002</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. &#039;SAVE10&#039; for 10% off, &#039;FLAT5&#039; for $5 off), apply sales tax rate, and round to 2 decimal places.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>bun test tests/cart.test.ts</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>75.51s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>950</b> / Out <b>8393</b>
+                                </div>
+                              </div>
+
+                              
+
+                              <div style="font-size:0.8rem;color:var(--success);margin:0.25rem 0;">
+                                      <b>Test Results:</b> 4 passed, 0 failed (Total 4)
+                                    </div>
+
+                              <div style="font-size:0.8rem;color:#a5b4fc;margin:0.25rem 0;">
+                                      <b>Modified Files:</b> src/cart.ts
+                                    </div>
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+{
+  &quot;files&quot;: {
+    &quot;src/cart.ts&quot;: &quot;export interface CartItem {\n  id: string;\n  name: string;\n  price: number;\n  quantity: number;\n}\n\nexport interface CartCalculation {\n  subtotal: number;\n  discount: number;\n  tax: number;\n  total: number;\n}\n\nfunction roundTo2(value: number): number {\n  if (!Number.isFinite(value)) {\n    return 0;\n  }\n\n  return Math.round((value + Number.EPSILON) * 100) / 100;\n}\n\nfunction getDiscount(couponCode: string | undefined, subtotal: number): number {\n  if (!couponCode || subtotal &lt;= 0) {\n    return 0;\n  }\n\n  const code = couponCode.trim().toUpperCase();\n\n  if (code.startsWith(\&quot;SAVE\&quot;)) {\n    const percent = Number(code.slice(4));\n\n    if (Number.isFinite(percent) &amp;&amp; percent &gt;= 0) {\n      return roundTo2(Math.min(subtotal, subtotal * (percent / 100)));\n    }\n  }\n\n  if (code.startsWith(\&quot;FLAT\&quot;)) {\n    const amount = Number(code.slice(4));\n\n    if (Number.isFinite(amount) &amp;&amp; amount &gt;= 0) {\n      return roundTo2(Math.min(subtotal, amount));\n    }\n  }\n\n  return 0;\n}\n\nexport function calculateCartTotal(\n  items: CartItem[],\n  couponCode?: string,\n  taxRate: number = 0.08\n): CartCalculation {\n  const subtot
+...(truncated for display)</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+          </div>
+        </div>
+        
+        <div id="tab-instruction_v1" class="tab-pane">
+          <!-- Benchmark Summary Card -->
+          <div class="section-card">
+            <div class="section-title">📊 instruction/v1 — Leaderboard</div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Pass Rate</th>
+                    <th>Avg Score</th>
+                    <th>Cost</th>
+                    <th>Avg Latency</th>
+                    <th>Tokens (In / Out)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                      <tr data-session="2026-08-19 13:09">
+                        <td>
+                          <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                          <div class="model-provider">pceay</div>
+                        </td>
+                        <td>
+                          <div style="font-weight:700;">67% (2/3)</div>
+                          <div class="progress-bar-container">
+                            <div class="progress-bar" style="width:67%;"></div>
+                          </div>
+                        </td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">0.67</span></td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                        <td><span style="font-family:var(--mono);">0.90s</span></td>
+                        <td><span style="font-family:var(--mono);font-size:0.75rem;">235 / 315</span></td>
+                      </tr>
+                      
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Task Breakdown & Deep Dive -->
+          <div class="section-card">
+            <div class="section-title">🔍 Task Breakdown & Deep Dive</div>
+            
+            <div class="filter-bar">
+              <input type="text" class="filter-input" placeholder="Search task prompt or ID..." oninput="filterTasksInTab('instruction_v1', this.value)">
+            </div>
+
+            <div id="tasks-container-instruction_v1">
+              
+                  <div class="task-card" data-task-id="instruction-001">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">instruction-001</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill fail">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✗ FAIL</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">List 3 programming languages. Each language must be on a new line starting with a bullet &#039;* &#039; and written in all capital letters. No other text or markdown.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>^\* [A-Z0-9+#.-]+\n\* [A-Z0-9+#.-]+\n\* [A-Z0-9+#.-]+$</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill fail">✗ FAIL</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>0.00</b> | Latency: <b>1.33s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>85</b> / Out <b>141</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+* PYTHON
+* JAVA
+* RUST</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="instruction-002">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">instruction-002</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Repeat the phrase &#039;LLM Benchmark Framework&#039; in reverse word order. Do not include any explanation.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>Framework Benchmark LLM</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>0.63s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>72</b> / Out <b>70</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+Framework Benchmark LLM</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="instruction-003">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">instruction-003</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Output the words &#039;ALPHA&#039;, &#039;BETA&#039;, &#039;GAMMA&#039; separated by &#039; === &#039; with no trailing punctuation.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>[
+  &quot;ALPHA === BETA === GAMMA&quot;
+]</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>0.75s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>78</b> / Out <b>104</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+ALPHA === BETA === GAMMA</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+          </div>
+        </div>
+        
+        <div id="tab-math_v1" class="tab-pane">
+          <!-- Benchmark Summary Card -->
+          <div class="section-card">
+            <div class="section-title">📊 math/v1 — Leaderboard</div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Pass Rate</th>
+                    <th>Avg Score</th>
+                    <th>Cost</th>
+                    <th>Avg Latency</th>
+                    <th>Tokens (In / Out)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                      <tr data-session="2026-08-19 13:09">
+                        <td>
+                          <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                          <div class="model-provider">pceay</div>
+                        </td>
+                        <td>
+                          <div style="font-weight:700;">100% (3/3)</div>
+                          <div class="progress-bar-container">
+                            <div class="progress-bar" style="width:100%;"></div>
+                          </div>
+                        </td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">1.00</span></td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                        <td><span style="font-family:var(--mono);">2.28s</span></td>
+                        <td><span style="font-family:var(--mono);font-size:0.75rem;">250 / 805</span></td>
+                      </tr>
+                      
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Task Breakdown & Deep Dive -->
+          <div class="section-card">
+            <div class="section-title">🔍 Task Breakdown & Deep Dive</div>
+            
+            <div class="filter-bar">
+              <input type="text" class="filter-input" placeholder="Search task prompt or ID..." oninput="filterTasksInTab('math_v1', this.value)">
+            </div>
+
+            <div id="tasks-container-math_v1">
+              
+                  <div class="task-card" data-task-id="math-001">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">math-001</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">What is (17 * 23) - (14 * 19)? Output only the final integer number.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>125</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>0.86s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>78</b> / Out <b>111</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+125</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="math-002">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">math-002</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Solve for x: 3x + 7 = 5x - 19. Output only the value of x.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>13</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>0.83s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>79</b> / Out <b>90</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+13</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="math-003">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">math-003</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>[
+  &quot;2, 2, 3, 7&quot;
+]</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>5.16s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>93</b> / Out <b>604</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+2, 2, 3, 7</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+          </div>
+        </div>
+        
+        <div id="tab-reasoning_v1" class="tab-pane">
+          <!-- Benchmark Summary Card -->
+          <div class="section-card">
+            <div class="section-title">📊 reasoning/v1 — Leaderboard</div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Pass Rate</th>
+                    <th>Avg Score</th>
+                    <th>Cost</th>
+                    <th>Avg Latency</th>
+                    <th>Tokens (In / Out)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                      <tr data-session="2026-08-19 13:09">
+                        <td>
+                          <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                          <div class="model-provider">pceay</div>
+                        </td>
+                        <td>
+                          <div style="font-weight:700;">100% (3/3)</div>
+                          <div class="progress-bar-container">
+                            <div class="progress-bar" style="width:100%;"></div>
+                          </div>
+                        </td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">1.00</span></td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                        <td><span style="font-family:var(--mono);">2.09s</span></td>
+                        <td><span style="font-family:var(--mono);font-size:0.75rem;">311 / 627</span></td>
+                      </tr>
+                      
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Task Breakdown & Deep Dive -->
+          <div class="section-card">
+            <div class="section-title">🔍 Task Breakdown & Deep Dive</div>
+            
+            <div class="filter-bar">
+              <input type="text" class="filter-input" placeholder="Search task prompt or ID..." oninput="filterTasksInTab('reasoning_v1', this.value)">
+            </div>
+
+            <div id="tasks-container-reasoning_v1">
+              
+                  <div class="task-card" data-task-id="reasoning-001">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">reasoning-001</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Sally has 3 brothers. Each of Sally&#039;s brothers has 2 sisters. How many sisters does Sally have? Answer with only the number.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>1</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>3.33s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>82</b> / Out <b>267</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+1</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="reasoning-002">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">reasoning-002</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Five runners (A, B, C, D, E) participated in a race. A finished before B but behind C. D finished before C but behind E. What was the exact finishing order from 1st to 5th place? Format as: E, D, C, A, B</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>[
+  &quot;E, D, C, A, B&quot;
+]</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>1.50s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>114</b> / Out <b>166</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+E, D, C, A, B</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="reasoning-003">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">reasoning-003</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">On an island, knights always tell the truth and knaves always lie. Person A says: &#039;We are both knaves.&#039; What is Person A (Knight or Knave) and what is Person B (Knight or Knave)? Format your answer exactly as: A is a Knave, B is a Knight</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>A is a Knave, B is a Knight</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>1.43s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>115</b> / Out <b>194</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+A is a Knave, B is a Knight</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+          </div>
+        </div>
+        
+        <div id="tab-structured_v1" class="tab-pane">
+          <!-- Benchmark Summary Card -->
+          <div class="section-card">
+            <div class="section-title">📊 structured/v1 — Leaderboard</div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Pass Rate</th>
+                    <th>Avg Score</th>
+                    <th>Cost</th>
+                    <th>Avg Latency</th>
+                    <th>Tokens (In / Out)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                      <tr data-session="2026-08-19 13:09">
+                        <td>
+                          <div class="model-name">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</div>
+                          <div class="model-provider">pceay</div>
+                        </td>
+                        <td>
+                          <div style="font-weight:700;">50% (1/2)</div>
+                          <div class="progress-bar-container">
+                            <div class="progress-bar" style="width:50%;"></div>
+                          </div>
+                        </td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">0.50</span></td>
+                        <td><span style="font-family:var(--mono);font-weight:600;">$0.0000</span></td>
+                        <td><span style="font-family:var(--mono);">1.92s</span></td>
+                        <td><span style="font-family:var(--mono);font-size:0.75rem;">190 / 542</span></td>
+                      </tr>
+                      
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Task Breakdown & Deep Dive -->
+          <div class="section-card">
+            <div class="section-title">🔍 Task Breakdown & Deep Dive</div>
+            
+            <div class="filter-bar">
+              <input type="text" class="filter-input" placeholder="Search task prompt or ID..." oninput="filterTasksInTab('structured_v1', this.value)">
+            </div>
+
+            <div id="tasks-container-structured_v1">
+              
+                  <div class="task-card" data-task-id="struct-001">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">struct-001</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill pass">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✓ PASS</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Extract person details as a JSON object: &#039;Dr. Jane Doe is a 34-year-old physicist living in Cambridge with email jane.doe@cambridge.ac.uk&#039;. Return only JSON.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [
+    &quot;name&quot;,
+    &quot;age&quot;,
+    &quot;occupation&quot;,
+    &quot;email&quot;
+  ],
+  &quot;properties&quot;: {
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;age&quot;: {
+      &quot;type&quot;: &quot;number&quot;
+    },
+    &quot;occupation&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;email&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  }
+}</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill pass">✓ PASS</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>1.00</b> | Latency: <b>1.78s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>91</b> / Out <b>239</b>
+                                </div>
+                              </div>
+
+                              
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+{
+  &quot;name&quot;: &quot;Jane Doe&quot;,
+  &quot;title&quot;: &quot;Dr.&quot;,
+  &quot;age&quot;: 34,
+  &quot;occupation&quot;: &quot;physicist&quot;,
+  &quot;location&quot;: &quot;Cambridge&quot;,
+  &quot;email&quot;: &quot;jane.doe@cambridge.ac.uk&quot;
+}</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="task-card" data-task-id="struct-002">
+                    <div class="task-header" onclick="this.parentElement.classList.toggle('open')">
+                      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                        <span class="task-title">struct-002</span>
+                        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
+                          <span class="status-pill fail">pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF: ✗ FAIL</span>
+                        </div>
+                      </div>
+                      <div style="font-size:0.78rem;color:var(--text-muted);">Expand Details ▼</div>
+                    </div>
+                    
+                    <div class="task-body">
+                      <!-- Master Prompt Box -->
+                      <div class="callout callout-prompt">
+                        <div class="callout-title" style="color:var(--info);">📋 Master Prompt / Instruction</div>
+                        <div style="white-space:pre-wrap;">Create an invoice JSON for customer &#039;Acme Corp&#039; with 2 line items: &#039;Server Hosting&#039; ($120, qty 2) and &#039;SSL Certificate&#039; ($50, qty 1), currency &#039;USD&#039;.</div>
+                      </div>
+
+                      <!-- Expected Evaluation Box -->
+                      <div class="callout callout-expected">
+                        <div class="callout-title" style="color:var(--success);">🎯 Evaluation Target / Expected Criteria</div>
+                        <pre><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [
+    &quot;customer&quot;,
+    &quot;currency&quot;,
+    &quot;items&quot;
+  ],
+  &quot;properties&quot;: {
+    &quot;customer&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;currency&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;USD&quot;,
+        &quot;EUR&quot;,
+        &quot;GBP&quot;
+      ]
+    },
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;
+    }
+  }
+}</code></pre>
+                      </div>
+
+                      <!-- Model Candidate Responses -->
+                      <div style="margin-top:1rem;">
+                        <div style="font-size:0.8rem;font-weight:700;margin-bottom:0.6rem;color:var(--text-muted);text-transform:uppercase;">
+                          Model Candidate Outputs
+                        </div>
+                        
+                            <div style="background:rgba(0,0,0,0.25);border:1px solid var(--card-border);border-radius:6px;padding:0.85rem;margin-bottom:0.75rem;">
+                              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.4rem;">
+                                <div style="display:flex;align-items:center;gap:0.5rem;">
+                                  <strong>pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF</strong>
+                                  <span class="status-pill fail">✗ FAIL</span>
+                                </div>
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);">
+                                  Score: <b>0.00</b> | Latency: <b>2.05s</b> | Cost: <b>$0.00000</b> | Tokens: In <b>99</b> / Out <b>303</b>
+                                </div>
+                              </div>
+
+                              <div style="color:var(--danger);font-size:0.8rem;margin:0.35rem 0;"><b>Error:</b> Missing required property: &#039;customer&#039;; Missing required property: &#039;currency&#039;; Missing required property: &#039;items&#039;</div>
+
+                              
+
+                              
+
+                              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">Model Response:</div>
+                              <pre><code>
+
+{
+  &quot;invoice&quot;: {
+    &quot;customer&quot;: &quot;Acme Corp&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;line_items&quot;: [
+      {
+        &quot;description&quot;: &quot;Server Hosting&quot;,
+        &quot;unit_price&quot;: 120,
+        &quot;quantity&quot;: 2,
+        &quot;amount&quot;: 240
+      },
+      {
+        &quot;description&quot;: &quot;SSL Certificate&quot;,
+        &quot;unit_price&quot;: 50,
+        &quot;quantity&quot;: 1,
+        &quot;amount&quot;: 50
+      }
+    ],
+    &quot;total&quot;: 290
+  }
+}</code></pre>
+                            </div>
+                            
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+          </div>
+        </div>
+        
+
+    <!-- Footer -->
+    <div class="footer">
+      Generated by <b>LLM Benchmark & Evaluation Framework</b> (Bun + TypeScript) • Unified Multi-Benchmark Report
+    </div>
+  </div>
+  <script>
+    const IS_COMPLETED = true;
+    let refreshInterval = null;
+
+    if (!IS_COMPLETED) {
+      let secondsLeft = 10;
+      refreshInterval = setInterval(() => {
+        secondsLeft--;
+        const textElem = document.getElementById('live-text');
+        if (textElem && secondsLeft > 0) {
+          textElem.innerText = "⏳ Live Running (Refresh in " + secondsLeft + "s)...";
+        }
+        if (secondsLeft <= 0) {
+          window.location.reload();
+        }
+      }, 1000);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const target = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', target);
+      localStorage.setItem('theme', target);
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+
+    function switchTab(tabKey, btn) {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        const matchingBtn = document.querySelector('button[data-tab="' + tabKey + '"]');
+        if (matchingBtn) matchingBtn.classList.add('active');
+      }
+
+      const pane = document.getElementById('tab-' + tabKey);
+      if (pane) pane.classList.add('active');
+    }
+
+    function filterTasksInTab(tabKey, query) {
+      const q = query.toLowerCase();
+      const container = document.getElementById('tasks-container-' + tabKey);
+      if (!container) return;
+
+      container.querySelectorAll('.task-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

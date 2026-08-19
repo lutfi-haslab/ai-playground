@@ -1,0 +1,11 @@
+{
+  "id": "task-001",
+  "type": "coding",
+  "category": "bugfix",
+  "difficulty": "easy",
+  "prompt": "Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.",
+  "evaluation": {
+    "type": "tests",
+    "command": "bun test tests/userService.test.ts"
+  }
+}

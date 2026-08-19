@@ -1,0 +1,7 @@
+{
+  "id": "math/v1",
+  "name": "Mathematics Benchmark v1",
+  "version": "1.0.0",
+  "type": "math",
+  "description": "Evaluates arithmetic, prime factorization, modular arithmetic, and algebra"
+}

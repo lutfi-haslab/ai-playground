@@ -1,0 +1,1445 @@
+{
+  "updatedAt": "2026-08-19T05:21:38.451Z",
+  "totalRuns": 10,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_121948_075a",
+      "benchmarkId": "reasoning/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:e01970c40225350c",
+      "modelId": "muse-spark-1.2-contributor",
+      "modelConfig": {
+        "id": "muse-spark-1.2-contributor",
+        "provider": "meta",
+        "model": "muse-spark-1.2-contributor",
+        "baseUrl": "https://api.meta.ai/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.1,
+          "output": 0.2
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:19:48.814Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_144660300c42",
+          "runId": "run_20260819_121948_075a",
+          "taskId": "reasoning-001",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "1",
+            "actual": "1",
+            "prompt": "Sally has 3 brothers. Each of Sally's brothers has 2 sisters. How many sisters does Sally have? Answer with only the number.",
+            "category": "deduction",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 37,
+          "outputTokens": 591,
+          "cachedTokens": 0,
+          "latencyMs": 6293,
+          "costUsd": 0.000122,
+          "response": "1",
+          "createdAt": "2026-08-19T05:19:48.823Z"
+        },
+        {
+          "id": "res_0ff745ea26f8",
+          "runId": "run_20260819_121948_075a",
+          "taskId": "reasoning-002",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "E, D, C, A, B",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "Five runners (A, B, C, D, E) participated in a race. A finished before B but behind C. D finished before C but behind E. What was the exact finishing order from 1st to 5th place? Format as: E, D, C, A, B",
+            "expected": [
+              "E, D, C, A, B"
+            ],
+            "category": "ordering",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 69,
+          "outputTokens": 728,
+          "cachedTokens": 0,
+          "latencyMs": 7663,
+          "costUsd": 0.000153,
+          "response": "E, D, C, A, B",
+          "createdAt": "2026-08-19T05:19:48.823Z"
+        },
+        {
+          "id": "res_b2822d5c5044",
+          "runId": "run_20260819_121948_075a",
+          "taskId": "reasoning-003",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "A is a Knave, B is a Knight",
+            "actual": "A is a Knave, B is a Knight",
+            "prompt": "On an island, knights always tell the truth and knaves always lie. Person A says: 'We are both knaves.' What is Person A (Knight or Knave) and what is Person B (Knight or Knave)? Format your answer exactly as: A is a Knave, B is a Knight",
+            "category": "truth-teller",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 71,
+          "outputTokens": 433,
+          "cachedTokens": 0,
+          "latencyMs": 7382,
+          "costUsd": 0.000094,
+          "response": "A is a Knave, B is a Knight",
+          "createdAt": "2026-08-19T05:19:48.823Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_121948_075a",
+        "benchmarkId": "reasoning/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:e01970c40225350c",
+        "modelId": "muse-spark-1.2-contributor",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 177,
+        "totalOutputTokens": 1752,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.000369,
+        "averageLatencyMs": 7113,
+        "totalDurationMs": 7680,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:19:56.494Z"
+    },
+    {
+      "id": "run_20260819_121956_409e",
+      "benchmarkId": "reasoning/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:e01970c40225350c",
+      "modelId": "qwen3.7-flash-2026-07-15",
+      "modelConfig": {
+        "id": "qwen3.7-flash-2026-07-15",
+        "provider": "sumopod",
+        "model": "qwen3.7-flash-2026-07-15",
+        "baseUrl": "https://ai.sumopod.com/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.03,
+          "output": 0.13
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:19:56.502Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_dc4a3c2c10cf",
+          "runId": "run_20260819_121956_409e",
+          "taskId": "reasoning-001",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "1",
+            "actual": "1",
+            "prompt": "Sally has 3 brothers. Each of Sally's brothers has 2 sisters. How many sisters does Sally have? Answer with only the number.",
+            "category": "deduction",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 40,
+          "outputTokens": 619,
+          "latencyMs": 6415,
+          "costUsd": 0.000082,
+          "response": "1",
+          "createdAt": "2026-08-19T05:19:56.507Z"
+        },
+        {
+          "id": "res_b1367d7162f9",
+          "runId": "run_20260819_121956_409e",
+          "taskId": "reasoning-002",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "E, D, C, A, B",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "Five runners (A, B, C, D, E) participated in a race. A finished before B but behind C. D finished before C but behind E. What was the exact finishing order from 1st to 5th place? Format as: E, D, C, A, B",
+            "expected": [
+              "E, D, C, A, B"
+            ],
+            "category": "ordering",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 72,
+          "outputTokens": 1012,
+          "latencyMs": 9014,
+          "costUsd": 0.000134,
+          "response": "E, D, C, A, B",
+          "createdAt": "2026-08-19T05:19:56.507Z"
+        },
+        {
+          "id": "res_b962339d6c78",
+          "runId": "run_20260819_121956_409e",
+          "taskId": "reasoning-003",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "A is a Knave, B is a Knight",
+            "actual": "A is a Knave, B is a Knight",
+            "prompt": "On an island, knights always tell the truth and knaves always lie. Person A says: 'We are both knaves.' What is Person A (Knight or Knave) and what is Person B (Knight or Knave)? Format your answer exactly as: A is a Knave, B is a Knight",
+            "category": "truth-teller",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 73,
+          "outputTokens": 1052,
+          "latencyMs": 9013,
+          "costUsd": 0.000139,
+          "response": "A is a Knave, B is a Knight",
+          "createdAt": "2026-08-19T05:19:56.507Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_121956_409e",
+        "benchmarkId": "reasoning/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:e01970c40225350c",
+        "modelId": "qwen3.7-flash-2026-07-15",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 185,
+        "totalOutputTokens": 2683,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.000355,
+        "averageLatencyMs": 8147,
+        "totalDurationMs": 9044,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:20:05.546Z"
+    },
+    {
+      "id": "run_20260819_122005_da02",
+      "benchmarkId": "math/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:cfdd772f8ae4e6f4",
+      "modelId": "muse-spark-1.2-contributor",
+      "modelConfig": {
+        "id": "muse-spark-1.2-contributor",
+        "provider": "meta",
+        "model": "muse-spark-1.2-contributor",
+        "baseUrl": "https://api.meta.ai/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.1,
+          "output": 0.2
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:20:05.559Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_1f8347122bec",
+          "runId": "run_20260819_122005_da02",
+          "taskId": "math-001",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "125",
+            "actual": "125",
+            "prompt": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+            "category": "arithmetic",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 29,
+          "outputTokens": 311,
+          "cachedTokens": 0,
+          "latencyMs": 3233,
+          "costUsd": 0.000065,
+          "response": "125",
+          "createdAt": "2026-08-19T05:20:05.566Z"
+        },
+        {
+          "id": "res_4402b7ca87ac",
+          "runId": "run_20260819_122005_da02",
+          "taskId": "math-002",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "13",
+            "actual": "13",
+            "prompt": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+            "category": "algebra",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 32,
+          "outputTokens": 227,
+          "cachedTokens": 0,
+          "latencyMs": 2429,
+          "costUsd": 0.000049,
+          "response": "13",
+          "createdAt": "2026-08-19T05:20:05.566Z"
+        },
+        {
+          "id": "res_850ade9dae6e",
+          "runId": "run_20260819_122005_da02",
+          "taskId": "math-003",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "2, 2, 3, 7",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+            "expected": [
+              "2, 2, 3, 7"
+            ],
+            "category": "primes",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 47,
+          "outputTokens": 1207,
+          "cachedTokens": 35,
+          "latencyMs": 8863,
+          "costUsd": 0.000246,
+          "response": "84 = 2^2 * 3 * 7\n\n* With multiplicity: `2, 2, 3, 7`\n* Distinct: `2, 3, 7`",
+          "createdAt": "2026-08-19T05:20:05.566Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122005_da02",
+        "benchmarkId": "math/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:cfdd772f8ae4e6f4",
+        "modelId": "muse-spark-1.2-contributor",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 108,
+        "totalOutputTokens": 1745,
+        "totalCachedTokens": 35,
+        "totalCostUsd": 0.00036,
+        "averageLatencyMs": 4842,
+        "totalDurationMs": 8905,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:20:14.464Z"
+    },
+    {
+      "id": "run_20260819_122014_ca02",
+      "benchmarkId": "math/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:cfdd772f8ae4e6f4",
+      "modelId": "qwen3.7-flash-2026-07-15",
+      "modelConfig": {
+        "id": "qwen3.7-flash-2026-07-15",
+        "provider": "sumopod",
+        "model": "qwen3.7-flash-2026-07-15",
+        "baseUrl": "https://ai.sumopod.com/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.03,
+          "output": 0.13
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:20:14.482Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_c68fcc25d2c2",
+          "runId": "run_20260819_122014_ca02",
+          "taskId": "math-001",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "125",
+            "actual": "125",
+            "prompt": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+            "category": "arithmetic",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 36,
+          "outputTokens": 1148,
+          "cachedTokens": 0,
+          "latencyMs": 9009,
+          "costUsd": 0.00015,
+          "response": "125",
+          "createdAt": "2026-08-19T05:20:14.493Z"
+        },
+        {
+          "id": "res_2a5d963a0947",
+          "runId": "run_20260819_122014_ca02",
+          "taskId": "math-002",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "13",
+            "actual": "13",
+            "prompt": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+            "category": "algebra",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 37,
+          "outputTokens": 376,
+          "latencyMs": 2963,
+          "costUsd": 0.00005,
+          "response": "13",
+          "createdAt": "2026-08-19T05:20:14.493Z"
+        },
+        {
+          "id": "res_a80b66e40ffc",
+          "runId": "run_20260819_122014_ca02",
+          "taskId": "math-003",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "2, 2, 3, 7",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+            "expected": [
+              "2, 2, 3, 7"
+            ],
+            "category": "primes",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 51,
+          "outputTokens": 583,
+          "latencyMs": 5273,
+          "costUsd": 0.000077,
+          "response": "2, 2, 3, 7",
+          "createdAt": "2026-08-19T05:20:14.493Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122014_ca02",
+        "benchmarkId": "math/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:cfdd772f8ae4e6f4",
+        "modelId": "qwen3.7-flash-2026-07-15",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 124,
+        "totalOutputTokens": 2107,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.000277,
+        "averageLatencyMs": 5748,
+        "totalDurationMs": 9045,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:20:23.527Z"
+    },
+    {
+      "id": "run_20260819_122023_7da5",
+      "benchmarkId": "structured/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:da91a4deed2e4289",
+      "modelId": "muse-spark-1.2-contributor",
+      "modelConfig": {
+        "id": "muse-spark-1.2-contributor",
+        "provider": "meta",
+        "model": "muse-spark-1.2-contributor",
+        "baseUrl": "https://api.meta.ai/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.1,
+          "output": 0.2
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:20:23.559Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_5d7b9327fab9",
+          "runId": "run_20260819_122023_7da5",
+          "taskId": "struct-001",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "parsed": {
+              "name": "Dr. Jane Doe",
+              "age": 34,
+              "profession": "physicist",
+              "location": "Cambridge",
+              "email": "jane.doe@cambridge.ac.uk"
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "validationErrors": [
+              "Missing required property: 'occupation'"
+            ],
+            "prompt": "Extract person details as a JSON object: 'Dr. Jane Doe is a 34-year-old physicist living in Cambridge with email jane.doe@cambridge.ac.uk'. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "category": "user-profile",
+            "difficulty": "easy",
+            "taskType": "json"
+          },
+          "inputTokens": 46,
+          "outputTokens": 949,
+          "cachedTokens": 0,
+          "latencyMs": 6128,
+          "costUsd": 0.000194,
+          "response": "{\"name\": \"Dr. Jane Doe\", \"age\": 34, \"profession\": \"physicist\", \"location\": \"Cambridge\", \"email\": \"jane.doe@cambridge.ac.uk\"}",
+          "error": "Missing required property: 'occupation'",
+          "createdAt": "2026-08-19T05:20:23.571Z"
+        },
+        {
+          "id": "res_711344d2f054",
+          "runId": "run_20260819_122023_7da5",
+          "taskId": "struct-002",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "parsed": {
+              "customer": "Acme Corp",
+              "currency": "USD",
+              "line_items": [
+                {
+                  "description": "Server Hosting",
+                  "unit_price": 120,
+                  "quantity": 2,
+                  "amount": 240
+                },
+                {
+                  "description": "SSL Certificate",
+                  "unit_price": 50,
+                  "quantity": 1,
+                  "amount": 50
+                }
+              ],
+              "subtotal": 290,
+              "total": 290
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "validationErrors": [
+              "Missing required property: 'items'"
+            ],
+            "prompt": "Create an invoice JSON for customer 'Acme Corp' with 2 line items: 'Server Hosting' ($120, qty 2) and 'SSL Certificate' ($50, qty 1), currency 'USD'.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "category": "invoice",
+            "difficulty": "medium",
+            "taskType": "json"
+          },
+          "inputTokens": 51,
+          "outputTokens": 356,
+          "cachedTokens": 0,
+          "latencyMs": 4479,
+          "costUsd": 0.000076,
+          "response": "```json\n{\n  \"customer\": \"Acme Corp\",\n  \"currency\": \"USD\",\n  \"line_items\": [\n    {\n      \"description\": \"Server Hosting\",\n      \"unit_price\": 120,\n      \"quantity\": 2,\n      \"amount\": 240\n    },\n    {\n      \"description\": \"SSL Certificate\",\n      \"unit_price\": 50,\n      \"quantity\": 1,\n      \"amount\": 50\n    }\n  ],\n  \"subtotal\": 290,\n  \"total\": 290\n}\n```",
+          "error": "Missing required property: 'items'",
+          "createdAt": "2026-08-19T05:20:23.572Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122023_7da5",
+        "benchmarkId": "structured/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:da91a4deed2e4289",
+        "modelId": "muse-spark-1.2-contributor",
+        "totalTasks": 2,
+        "passedTasks": 0,
+        "failedTasks": 2,
+        "accuracy": 0,
+        "averageScore": 0,
+        "totalInputTokens": 97,
+        "totalOutputTokens": 1305,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.00027,
+        "averageLatencyMs": 5304,
+        "totalDurationMs": 6164,
+        "errorRate": 1,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:20:29.723Z"
+    },
+    {
+      "id": "run_20260819_122029_5123",
+      "benchmarkId": "structured/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:da91a4deed2e4289",
+      "modelId": "qwen3.7-flash-2026-07-15",
+      "modelConfig": {
+        "id": "qwen3.7-flash-2026-07-15",
+        "provider": "sumopod",
+        "model": "qwen3.7-flash-2026-07-15",
+        "baseUrl": "https://ai.sumopod.com/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.03,
+          "output": 0.13
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:20:29.741Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_a39f701c762b",
+          "runId": "run_20260819_122029_5123",
+          "taskId": "struct-001",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "title": "Dr.",
+              "name": "Jane Doe",
+              "age": 34,
+              "occupation": "Physicist",
+              "location": "Cambridge",
+              "email": "jane.doe@cambridge.ac.uk"
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Extract person details as a JSON object: 'Dr. Jane Doe is a 34-year-old physicist living in Cambridge with email jane.doe@cambridge.ac.uk'. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "category": "user-profile",
+            "difficulty": "easy",
+            "taskType": "json"
+          },
+          "inputTokens": 49,
+          "outputTokens": 1412,
+          "cachedTokens": 0,
+          "latencyMs": 9053,
+          "costUsd": 0.000185,
+          "response": "{\n  \"title\": \"Dr.\",\n  \"name\": \"Jane Doe\",\n  \"age\": 34,\n  \"occupation\": \"Physicist\",\n  \"location\": \"Cambridge\",\n  \"email\": \"jane.doe@cambridge.ac.uk\"\n}",
+          "createdAt": "2026-08-19T05:20:29.753Z"
+        },
+        {
+          "id": "res_aedd7153d1d4",
+          "runId": "run_20260819_122029_5123",
+          "taskId": "struct-002",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "parsed": {
+              "invoice_id": "INV-2024-1042",
+              "issue_date": "2024-05-20",
+              "due_date": "2024-06-19",
+              "currency": "USD",
+              "customer": {
+                "name": "Acme Corp"
+              },
+              "line_items": [
+                {
+                  "description": "Server Hosting",
+                  "quantity": 2,
+                  "unit_price": 120,
+                  "amount": 240
+                },
+                {
+                  "description": "SSL Certificate",
+                  "quantity": 1,
+                  "unit_price": 50,
+                  "amount": 50
+                }
+              ],
+              "subtotal": 290,
+              "tax": 0,
+              "discount": 0,
+              "total": 290
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "validationErrors": [
+              "Missing required property: 'items'",
+              "Property 'customer' should be string, got object"
+            ],
+            "prompt": "Create an invoice JSON for customer 'Acme Corp' with 2 line items: 'Server Hosting' ($120, qty 2) and 'SSL Certificate' ($50, qty 1), currency 'USD'.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "category": "invoice",
+            "difficulty": "medium",
+            "taskType": "json"
+          },
+          "inputTokens": 57,
+          "outputTokens": 1237,
+          "latencyMs": 10099,
+          "costUsd": 0.000163,
+          "response": "```json\n{\n  \"invoice_id\": \"INV-2024-1042\",\n  \"issue_date\": \"2024-05-20\",\n  \"due_date\": \"2024-06-19\",\n  \"currency\": \"USD\",\n  \"customer\": {\n    \"name\": \"Acme Corp\"\n  },\n  \"line_items\": [\n    {\n      \"description\": \"Server Hosting\",\n      \"quantity\": 2,\n      \"unit_price\": 120.00,\n      \"amount\": 240.00\n    },\n    {\n      \"description\": \"SSL Certificate\",\n      \"quantity\": 1,\n      \"unit_price\": 50.00,\n      \"amount\": 50.00\n    }\n  ],\n  \"subtotal\": 290.00,\n  \"tax\": 0.00,\n  \"discount\": 0.00,\n  \"total\": 290.00\n}\n```",
+          "error": "Missing required property: 'items'; Property 'customer' should be string, got object",
+          "createdAt": "2026-08-19T05:20:29.753Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122029_5123",
+        "benchmarkId": "structured/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:da91a4deed2e4289",
+        "modelId": "qwen3.7-flash-2026-07-15",
+        "totalTasks": 2,
+        "passedTasks": 1,
+        "failedTasks": 1,
+        "accuracy": 0.5,
+        "averageScore": 0.5,
+        "totalInputTokens": 106,
+        "totalOutputTokens": 2649,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.000348,
+        "averageLatencyMs": 9576,
+        "totalDurationMs": 10142,
+        "errorRate": 0.5,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:20:39.883Z"
+    },
+    {
+      "id": "run_20260819_122039_3b04",
+      "benchmarkId": "instruction/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:4cc4c5105b9f564e",
+      "modelId": "muse-spark-1.2-contributor",
+      "modelConfig": {
+        "id": "muse-spark-1.2-contributor",
+        "provider": "meta",
+        "model": "muse-spark-1.2-contributor",
+        "baseUrl": "https://api.meta.ai/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.1,
+          "output": 0.2
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:20:39.904Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_aba57d046fd5",
+          "runId": "run_20260819_122039_3b04",
+          "taskId": "instruction-001",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "pattern": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$",
+            "flags": "i",
+            "matched": true,
+            "groups": [
+              "* PYTHON\n* JAVA\n* RUST"
+            ],
+            "prompt": "List 3 programming languages. Each language must be on a new line starting with a bullet '* ' and written in all capital letters. No other text or markdown.",
+            "expected": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$",
+            "category": "formatting",
+            "difficulty": "easy",
+            "taskType": "regex"
+          },
+          "inputTokens": 40,
+          "outputTokens": 431,
+          "cachedTokens": 0,
+          "latencyMs": 3446,
+          "costUsd": 0.00009,
+          "response": "* PYTHON\n* JAVA\n* RUST",
+          "createdAt": "2026-08-19T05:20:39.918Z"
+        },
+        {
+          "id": "res_8fc053ca8cb8",
+          "runId": "run_20260819_122039_3b04",
+          "taskId": "instruction-002",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "Framework Benchmark LLM",
+            "actual": "Framework Benchmark LLM",
+            "prompt": "Repeat the phrase 'LLM Benchmark Framework' in reverse word order. Do not include any explanation.",
+            "category": "constraints",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 27,
+          "outputTokens": 337,
+          "cachedTokens": 0,
+          "latencyMs": 2827,
+          "costUsd": 0.00007,
+          "response": "Framework Benchmark LLM",
+          "createdAt": "2026-08-19T05:20:39.918Z"
+        },
+        {
+          "id": "res_c48fb9234373",
+          "runId": "run_20260819_122039_3b04",
+          "taskId": "instruction-003",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "ALPHA === BETA === GAMMA",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "Output the words 'ALPHA', 'BETA', 'GAMMA' separated by ' === ' with no trailing punctuation.",
+            "expected": [
+              "ALPHA === BETA === GAMMA"
+            ],
+            "category": "delimiter",
+            "difficulty": "easy",
+            "taskType": "contains"
+          },
+          "inputTokens": 32,
+          "outputTokens": 483,
+          "cachedTokens": 0,
+          "latencyMs": 3435,
+          "costUsd": 0.0001,
+          "response": "ALPHA === BETA === GAMMA",
+          "createdAt": "2026-08-19T05:20:39.918Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122039_3b04",
+        "benchmarkId": "instruction/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:4cc4c5105b9f564e",
+        "modelId": "muse-spark-1.2-contributor",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 99,
+        "totalOutputTokens": 1251,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.00026,
+        "averageLatencyMs": 3236,
+        "totalDurationMs": 3491,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:20:43.395Z"
+    },
+    {
+      "id": "run_20260819_122043_569a",
+      "benchmarkId": "instruction/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:4cc4c5105b9f564e",
+      "modelId": "qwen3.7-flash-2026-07-15",
+      "modelConfig": {
+        "id": "qwen3.7-flash-2026-07-15",
+        "provider": "sumopod",
+        "model": "qwen3.7-flash-2026-07-15",
+        "baseUrl": "https://ai.sumopod.com/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.03,
+          "output": 0.13
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:20:43.409Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_47d75843171b",
+          "runId": "run_20260819_122043_569a",
+          "taskId": "instruction-001",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "pattern": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$",
+            "flags": "i",
+            "matched": true,
+            "groups": [
+              "* PYTHON\n* JAVA\n* RUST"
+            ],
+            "prompt": "List 3 programming languages. Each language must be on a new line starting with a bullet '* ' and written in all capital letters. No other text or markdown.",
+            "expected": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$",
+            "category": "formatting",
+            "difficulty": "easy",
+            "taskType": "regex"
+          },
+          "inputTokens": 43,
+          "outputTokens": 777,
+          "cachedTokens": 0,
+          "latencyMs": 5389,
+          "costUsd": 0.000102,
+          "response": "* PYTHON\n* JAVA\n* RUST",
+          "createdAt": "2026-08-19T05:20:43.423Z"
+        },
+        {
+          "id": "res_297c96349f99",
+          "runId": "run_20260819_122043_569a",
+          "taskId": "instruction-002",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "Framework Benchmark LLM",
+            "actual": "Framework Benchmark LLM",
+            "prompt": "Repeat the phrase 'LLM Benchmark Framework' in reverse word order. Do not include any explanation.",
+            "category": "constraints",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 30,
+          "outputTokens": 259,
+          "latencyMs": 2786,
+          "costUsd": 0.000035,
+          "response": "Framework Benchmark LLM",
+          "createdAt": "2026-08-19T05:20:43.423Z"
+        },
+        {
+          "id": "res_a2acc0415ccb",
+          "runId": "run_20260819_122043_569a",
+          "taskId": "instruction-003",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "ALPHA === BETA === GAMMA",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "Output the words 'ALPHA', 'BETA', 'GAMMA' separated by ' === ' with no trailing punctuation.",
+            "expected": [
+              "ALPHA === BETA === GAMMA"
+            ],
+            "category": "delimiter",
+            "difficulty": "easy",
+            "taskType": "contains"
+          },
+          "inputTokens": 36,
+          "outputTokens": 221,
+          "latencyMs": 2498,
+          "costUsd": 0.00003,
+          "response": "ALPHA === BETA === GAMMA",
+          "createdAt": "2026-08-19T05:20:43.423Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122043_569a",
+        "benchmarkId": "instruction/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:4cc4c5105b9f564e",
+        "modelId": "qwen3.7-flash-2026-07-15",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 109,
+        "totalOutputTokens": 1257,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.000167,
+        "averageLatencyMs": 3558,
+        "totalDurationMs": 5419,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:20:48.828Z"
+    },
+    {
+      "id": "run_20260819_122048_c6a9",
+      "benchmarkId": "coding/typescript-v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:97c3c37ef471a52c",
+      "modelId": "muse-spark-1.2-contributor",
+      "modelConfig": {
+        "id": "muse-spark-1.2-contributor",
+        "provider": "meta",
+        "model": "muse-spark-1.2-contributor",
+        "baseUrl": "https://api.meta.ai/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.1,
+          "output": 0.2
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:20:48.857Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_3c89256a70fe",
+          "runId": "run_20260819_122048_c6a9",
+          "taskId": "task-001",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/userService.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/userService.test.ts:\n(pass) userService > validates standard emails [0.86ms]\n(pass) userService > validates complex emails with subdomains and plus tags [0.06ms]\n(pass) userService > formats active users correctly [0.15ms]\n(pass) userService > formats inactive users correctly [0.03ms]\n\n 4 pass\n 0 fail\n 7 expect() calls\nRan 4 tests across 1 file. [26.00ms]\n",
+            "durationMs": 71,
+            "appliedFiles": [
+              "src/userService.ts"
+            ],
+            "prompt": "Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.",
+            "expected": "bun test tests/userService.test.ts",
+            "category": "bugfix",
+            "difficulty": "easy",
+            "taskType": "coding"
+          },
+          "inputTokens": 606,
+          "outputTokens": 1731,
+          "cachedTokens": 0,
+          "latencyMs": 11633,
+          "costUsd": 0.000407,
+          "response": "{\"files\": {\"src/userService.ts\": \"export interface User {\\n  id: string;\\n  name: string;\\n  email: string;\\n  isActive: boolean;\\n}\\n\\nexport function validateEmail(email: string): boolean {\\n  return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$/.test(email);\\n}\\n\\nexport function formatUser(user: User): string {\\n  if (!user.isActive) {\\n    return `[INACTIVE] ${user.name} <${user.email}>`;\\n  }\\n  return `${user.name} <${user.email}>`;\\n}\\n\"}}",
+          "createdAt": "2026-08-19T05:20:48.873Z"
+        },
+        {
+          "id": "res_d7cac3d445b2",
+          "runId": "run_20260819_122048_c6a9",
+          "taskId": "task-002",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/cart.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/cart.test.ts:\n(pass) calculateCartTotal > calculates subtotal and tax without coupon [1.04ms]\n(pass) calculateCartTotal > applies SAVE10 percentage discount coupon [0.04ms]\n(pass) calculateCartTotal > applies FLAT5 discount coupon [0.02ms]\n(pass) calculateCartTotal > handles empty cart [0.02ms]\n\n 4 pass\n 0 fail\n 16 expect() calls\nRan 4 tests across 1 file. [35.00ms]\n",
+            "durationMs": 68,
+            "appliedFiles": [
+              "src/cart.ts"
+            ],
+            "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. 'SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate, and round to 2 decimal places.",
+            "expected": "bun test tests/cart.test.ts",
+            "category": "feature",
+            "difficulty": "medium",
+            "taskType": "coding"
+          },
+          "inputTokens": 795,
+          "outputTokens": 1112,
+          "cachedTokens": 739,
+          "latencyMs": 7494,
+          "costUsd": 0.000302,
+          "response": "```json\n{\n  \"files\": {\n    \"src/cart.ts\": \"export interface CartItem {\\n  id: string;\\n  name: string;\\n  price: number;\\n  quantity: number;\\n}\\n\\nexport interface CartCalculation {\\n  subtotal: number;\\n  discount: number;\\n  tax: number;\\n  total: number;\\n}\\n\\nfunction round2(value: number): number {\\n  return Math.round(value * 100) / 100;\\n}\\n\\nexport function calculateCartTotal(\\n  items: CartItem[],\\n  couponCode?: string,\\n  taxRate: number = 0.08\\n): CartCalculation {\\n  const subtotalRaw = items.reduce((sum, item) => sum + item.price * item.quantity, 0);\\n  const subtotal = round2(subtotalRaw);\\n\\n  let discount = 0;\\n  if (subtotal > 0) {\\n    if (couponCode === \\\"SAVE10\\\") {\\n      discount = subtotal * 0.1;\\n    } else if (couponCode === \\\"FLAT5\\\") {\\n      discount = 5;\\n    }\\n  }\\n\\n  discount = Math.min(discount, subtotal);\\n  discount = round2(discount);\\n\\n  const taxable = round2(subtotal - discount);\\n  const tax = round2(taxable * taxRate);\\n  const total = round2(taxable + tax);\\n\\n  return {\\n    subtotal,\\n    discount,\\n    tax,\\n    total,\\n  };\\n}\\n\"\n  }\n}\n```",
+          "createdAt": "2026-08-19T05:20:48.874Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122048_c6a9",
+        "benchmarkId": "coding/typescript-v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:97c3c37ef471a52c",
+        "modelId": "muse-spark-1.2-contributor",
+        "totalTasks": 2,
+        "passedTasks": 2,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 1401,
+        "totalOutputTokens": 2843,
+        "totalCachedTokens": 739,
+        "totalCostUsd": 0.000709,
+        "averageLatencyMs": 9564,
+        "totalDurationMs": 11766,
+        "errorRate": 0,
+        "retryCount": 0,
+        "codingMetrics": {
+          "totalTests": 8,
+          "testsPassed": 8,
+          "testsFailed": 0
+        }
+      },
+      "finishedAt": "2026-08-19T05:21:00.623Z"
+    },
+    {
+      "id": "run_20260819_122100_9659",
+      "benchmarkId": "coding/typescript-v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:97c3c37ef471a52c",
+      "modelId": "qwen3.7-flash-2026-07-15",
+      "modelConfig": {
+        "id": "qwen3.7-flash-2026-07-15",
+        "provider": "sumopod",
+        "model": "qwen3.7-flash-2026-07-15",
+        "baseUrl": "https://ai.sumopod.com/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.03,
+          "output": 0.13
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:21:00.640Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_3199fc27e497",
+          "runId": "run_20260819_122100_9659",
+          "taskId": "task-001",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/userService.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/userService.test.ts:\n(pass) userService > validates standard emails [0.18ms]\n(pass) userService > validates complex emails with subdomains and plus tags [0.02ms]\n(pass) userService > formats active users correctly [0.07ms]\n(pass) userService > formats inactive users correctly [0.02ms]\n\n 4 pass\n 0 fail\n 7 expect() calls\nRan 4 tests across 1 file. [17.00ms]\n",
+            "durationMs": 50,
+            "appliedFiles": [
+              "src/userService.ts"
+            ],
+            "prompt": "Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.",
+            "expected": "bun test tests/userService.test.ts",
+            "category": "bugfix",
+            "difficulty": "easy",
+            "taskType": "coding"
+          },
+          "inputTokens": 662,
+          "outputTokens": 3724,
+          "latencyMs": 32532,
+          "costUsd": 0.000504,
+          "response": "```json\n{\n  \"files\": {\n    \"src/userService.ts\": \"export interface User {\\n  id: string;\\n  name: string;\\n  email: string;\\n  isActive: boolean;\\n}\\n\\nexport function validateEmail(email: string): boolean {\\n  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$/;\\n  return emailRegex.test(email);\\n}\\n\\nexport function formatUser(user: User): string {\\n  if (user.isActive) {\\n    return `${user.name} <${user.email}>`;\\n  }\\n  return `[INACTIVE] ${user.name} <${user.email}>`;\\n}\"\n  }\n}\n```",
+          "createdAt": "2026-08-19T05:21:00.653Z"
+        },
+        {
+          "id": "res_5284b7ea0ded",
+          "runId": "run_20260819_122100_9659",
+          "taskId": "task-002",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/cart.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/cart.test.ts:\n(pass) calculateCartTotal > calculates subtotal and tax without coupon [0.37ms]\n(pass) calculateCartTotal > applies SAVE10 percentage discount coupon [0.05ms]\n(pass) calculateCartTotal > applies FLAT5 discount coupon [0.03ms]\n(pass) calculateCartTotal > handles empty cart [0.03ms]\n\n 4 pass\n 0 fail\n 16 expect() calls\nRan 4 tests across 1 file. [15.00ms]\n",
+            "durationMs": 44,
+            "appliedFiles": [
+              "src/cart.ts"
+            ],
+            "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. 'SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate, and round to 2 decimal places.",
+            "expected": "bun test tests/cart.test.ts",
+            "category": "feature",
+            "difficulty": "medium",
+            "taskType": "coding"
+          },
+          "inputTokens": 908,
+          "outputTokens": 4717,
+          "latencyMs": 37713,
+          "costUsd": 0.00064,
+          "response": "```json\n{\n  \"files\": {\n    \"src/cart.ts\": \"export interface CartItem {\\n  id: string;\\n  name: string;\\n  price: number;\\n  quantity: number;\\n}\\n\\nexport interface CartCalculation {\\n  subtotal: number;\\n  discount: number;\\n  tax: number;\\n  total: number;\\n}\\n\\nfunction roundToTwoDecimals(num: number): number {\\n  return Math.round(num * 100) / 100;\\n}\\n\\nexport function calculateCartTotal(\\n  items: CartItem[],\\n  couponCode?: string,\\n  taxRate: number = 0.08\\n): CartCalculation {\\n  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);\\n  \\n  let discount = 0;\\n  if (couponCode === 'SAVE10') {\\n    discount = roundToTwoDecimals(subtotal * 0.10);\\n  } else if (couponCode === 'FLAT5') {\\n    discount = 5;\\n  }\\n\\n  const taxableAmount = subtotal - discount;\\n  const tax = roundToTwoDecimals(taxableAmount * taxRate);\\n  const total = roundToTwoDecimals(taxableAmount + tax);\\n\\n  return {\\n    subtotal: roundToTwoDecimals(subtotal),\\n    discount,\\n    tax,\\n    total,\\n  };\\n}\"\n  }\n}\n```",
+          "createdAt": "2026-08-19T05:21:00.653Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_122100_9659",
+        "benchmarkId": "coding/typescript-v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:97c3c37ef471a52c",
+        "modelId": "qwen3.7-flash-2026-07-15",
+        "totalTasks": 2,
+        "passedTasks": 2,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 1570,
+        "totalOutputTokens": 8441,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.001144,
+        "averageLatencyMs": 35123,
+        "totalDurationMs": 37811,
+        "errorRate": 0,
+        "retryCount": 0,
+        "codingMetrics": {
+          "totalTests": 8,
+          "testsPassed": 8,
+          "testsFailed": 0
+        }
+      },
+      "finishedAt": "2026-08-19T05:21:38.451Z"
+    }
+  ]
+}

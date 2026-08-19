@@ -1,0 +1,7 @@
+{
+  "id": "structured/v1",
+  "name": "Structured Output Benchmark v1",
+  "version": "1.0.0",
+  "type": "structured",
+  "description": "Evaluates schema compliance, JSON object generation, and type enforcement"
+}

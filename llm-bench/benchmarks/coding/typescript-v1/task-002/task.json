@@ -1,0 +1,11 @@
+{
+  "id": "task-002",
+  "type": "coding",
+  "category": "feature",
+  "difficulty": "medium",
+  "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. 'SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate, and round to 2 decimal places.",
+  "evaluation": {
+    "type": "tests",
+    "command": "bun test tests/cart.test.ts"
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "math-001",
+    "type": "exact",
+    "category": "arithmetic",
+    "difficulty": "easy",
+    "prompt": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+    "expected": "125"
+  },
+  {
+    "id": "math-002",
+    "type": "exact",
+    "category": "algebra",
+    "difficulty": "medium",
+    "prompt": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+    "expected": "13"
+  },
+  {
+    "id": "math-003",
+    "type": "contains",
+    "category": "primes",
+    "difficulty": "medium",
+    "prompt": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+    "expected": ["2, 2, 3, 7"]
+  }
+]

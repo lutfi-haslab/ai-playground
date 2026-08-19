@@ -1,0 +1,7 @@
+{
+  "id": "coding/typescript-v1",
+  "name": "TypeScript Coding Benchmark v1",
+  "version": "1.0.0",
+  "type": "coding",
+  "description": "Evaluates TypeScript code bug fixing and feature completion using isolated workspace execution and bun test verification"
+}

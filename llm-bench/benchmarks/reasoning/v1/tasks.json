@@ -1,0 +1,26 @@
+[
+  {
+    "id": "reasoning-001",
+    "type": "exact",
+    "category": "deduction",
+    "difficulty": "easy",
+    "prompt": "Sally has 3 brothers. Each of Sally's brothers has 2 sisters. How many sisters does Sally have? Answer with only the number.",
+    "expected": "1"
+  },
+  {
+    "id": "reasoning-002",
+    "type": "contains",
+    "category": "ordering",
+    "difficulty": "medium",
+    "prompt": "Five runners (A, B, C, D, E) participated in a race. A finished before B but behind C. D finished before C but behind E. What was the exact finishing order from 1st to 5th place? Format as: E, D, C, A, B",
+    "expected": ["E, D, C, A, B"]
+  },
+  {
+    "id": "reasoning-003",
+    "type": "exact",
+    "category": "truth-teller",
+    "difficulty": "medium",
+    "prompt": "On an island, knights always tell the truth and knaves always lie. Person A says: 'We are both knaves.' What is Person A (Knight or Knave) and what is Person B (Knight or Knave)? Format your answer exactly as: A is a Knave, B is a Knight",
+    "expected": "A is a Knave, B is a Knight"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "struct-001",
+    "type": "json",
+    "category": "user-profile",
+    "difficulty": "easy",
+    "prompt": "Extract person details as a JSON object: 'Dr. Jane Doe is a 34-year-old physicist living in Cambridge with email jane.doe@cambridge.ac.uk'. Return only JSON.",
+    "schema": {
+      "type": "object",
+      "required": ["name", "age", "occupation", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "age": { "type": "number" },
+        "occupation": { "type": "string" },
+        "email": { "type": "string" }
+      }
+    }
+  },
+  {
+    "id": "struct-002",
+    "type": "json",
+    "category": "invoice",
+    "difficulty": "medium",
+    "prompt": "Create an invoice JSON for customer 'Acme Corp' with 2 line items: 'Server Hosting' ($120, qty 2) and 'SSL Certificate' ($50, qty 1), currency 'USD'.",
+    "schema": {
+      "type": "object",
+      "required": ["customer", "currency", "items"],
+      "properties": {
+        "customer": { "type": "string" },
+        "currency": { "type": "string", "enum": ["USD", "EUR", "GBP"] },
+        "items": { "type": "array" }
+      }
+    }
+  }
+]

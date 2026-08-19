@@ -1,0 +1,7 @@
+{
+  "id": "instruction/v1",
+  "name": "Instruction Following Benchmark v1",
+  "version": "1.0.0",
+  "type": "instruction",
+  "description": "Evaluates adherence to strict negative constraints, formatting rules, and word constraints"
+}

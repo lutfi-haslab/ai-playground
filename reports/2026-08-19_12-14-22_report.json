@@ -1,0 +1,256 @@
+{
+  "updatedAt": "2026-08-19T05:14:38.627Z",
+  "totalRuns": 2,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_121422_8efd",
+      "benchmarkId": "math/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:cfdd772f8ae4e6f4",
+      "modelId": "muse-spark-1.2-contributor",
+      "modelConfig": {
+        "id": "muse-spark-1.2-contributor",
+        "provider": "meta",
+        "model": "muse-spark-1.2-contributor",
+        "baseUrl": "https://api.meta.ai/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.1,
+          "output": 0.2
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:14:22.589Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_df64de777b16",
+          "runId": "run_20260819_121422_8efd",
+          "taskId": "math-001",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "125",
+            "actual": "125",
+            "prompt": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+            "category": "arithmetic",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 29,
+          "outputTokens": 245,
+          "cachedTokens": 0,
+          "latencyMs": 4809,
+          "costUsd": 0.000052,
+          "response": "125",
+          "createdAt": "2026-08-19T05:14:22.597Z"
+        },
+        {
+          "id": "res_0b410d9b6082",
+          "runId": "run_20260819_121422_8efd",
+          "taskId": "math-002",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "13",
+            "actual": "13",
+            "prompt": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+            "category": "algebra",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 32,
+          "outputTokens": 253,
+          "cachedTokens": 0,
+          "latencyMs": 4294,
+          "costUsd": 0.000054,
+          "response": "13",
+          "createdAt": "2026-08-19T05:14:22.598Z"
+        },
+        {
+          "id": "res_40b70247925a",
+          "runId": "run_20260819_121422_8efd",
+          "taskId": "math-003",
+          "modelId": "muse-spark-1.2-contributor",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "2, 2, 3, 7",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+            "expected": [
+              "2, 2, 3, 7"
+            ],
+            "category": "primes",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 47,
+          "outputTokens": 894,
+          "cachedTokens": 0,
+          "latencyMs": 8316,
+          "costUsd": 0.000184,
+          "response": "84 = 2^2 * 3 * 7\n\n* With multiplicity: **2, 2, 3, 7**\n* Distinct: **2, 3, 7**",
+          "createdAt": "2026-08-19T05:14:22.598Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_121422_8efd",
+        "benchmarkId": "math/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:cfdd772f8ae4e6f4",
+        "modelId": "muse-spark-1.2-contributor",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 108,
+        "totalOutputTokens": 1392,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.00029,
+        "averageLatencyMs": 5806,
+        "totalDurationMs": 8333,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:14:30.922Z"
+    },
+    {
+      "id": "run_20260819_121430_b3d9",
+      "benchmarkId": "math/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:cfdd772f8ae4e6f4",
+      "modelId": "qwen3.7-flash-2026-07-15",
+      "modelConfig": {
+        "id": "qwen3.7-flash-2026-07-15",
+        "provider": "sumopod",
+        "model": "qwen3.7-flash-2026-07-15",
+        "baseUrl": "https://ai.sumopod.com/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0.03,
+          "output": 0.13
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 3
+      },
+      "startedAt": "2026-08-19T05:14:30.930Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_becf3e2ef6d4",
+          "runId": "run_20260819_121430_b3d9",
+          "taskId": "math-001",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "125",
+            "actual": "125",
+            "prompt": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+            "category": "arithmetic",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 36,
+          "outputTokens": 568,
+          "latencyMs": 6907,
+          "costUsd": 0.000075,
+          "response": "125",
+          "createdAt": "2026-08-19T05:14:30.937Z"
+        },
+        {
+          "id": "res_62d40f22e00a",
+          "runId": "run_20260819_121430_b3d9",
+          "taskId": "math-002",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "13",
+            "actual": "13",
+            "prompt": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+            "category": "algebra",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 37,
+          "outputTokens": 346,
+          "latencyMs": 3019,
+          "costUsd": 0.000046,
+          "response": "13",
+          "createdAt": "2026-08-19T05:14:30.937Z"
+        },
+        {
+          "id": "res_e9d175f3c0c7",
+          "runId": "run_20260819_121430_b3d9",
+          "taskId": "math-003",
+          "modelId": "qwen3.7-flash-2026-07-15",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "2, 2, 3, 7",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+            "expected": [
+              "2, 2, 3, 7"
+            ],
+            "category": "primes",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 51,
+          "outputTokens": 649,
+          "latencyMs": 7666,
+          "costUsd": 0.000086,
+          "response": "2, 2, 3, 7",
+          "createdAt": "2026-08-19T05:14:30.937Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_121430_b3d9",
+        "benchmarkId": "math/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:cfdd772f8ae4e6f4",
+        "modelId": "qwen3.7-flash-2026-07-15",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 124,
+        "totalOutputTokens": 1563,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0.000207,
+        "averageLatencyMs": 5864,
+        "totalDurationMs": 7696,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T05:14:38.626Z"
+    }
+  ]
+}

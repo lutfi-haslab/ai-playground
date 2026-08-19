@@ -1,0 +1,26 @@
+[
+  {
+    "id": "instruction-001",
+    "type": "regex",
+    "category": "formatting",
+    "difficulty": "easy",
+    "prompt": "List 3 programming languages. Each language must be on a new line starting with a bullet '* ' and written in all capital letters. No other text or markdown.",
+    "pattern": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$"
+  },
+  {
+    "id": "instruction-002",
+    "type": "exact",
+    "category": "constraints",
+    "difficulty": "medium",
+    "prompt": "Repeat the phrase 'LLM Benchmark Framework' in reverse word order. Do not include any explanation.",
+    "expected": "Framework Benchmark LLM"
+  },
+  {
+    "id": "instruction-003",
+    "type": "contains",
+    "category": "delimiter",
+    "difficulty": "easy",
+    "prompt": "Output the words 'ALPHA', 'BETA', 'GAMMA' separated by ' === ' with no trailing punctuation.",
+    "expected": ["ALPHA === BETA === GAMMA"]
+  }
+]

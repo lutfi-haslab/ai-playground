@@ -1,0 +1,7 @@
+{
+  "id": "reasoning/v1",
+  "name": "Logical Reasoning Benchmark v1",
+  "version": "1.0.0",
+  "type": "reasoning",
+  "description": "Multi-step logical deductions, riddles, ordering and syllogism reasoning tasks"
+}

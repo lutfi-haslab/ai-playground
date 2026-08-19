@@ -1,0 +1,20 @@
+{
+  "name": "llm-bench-root",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "bench": "./llm-bench/src/cli/index.ts"
+  },
+  "scripts": {
+    "bench": "bun run ./llm-bench/src/cli/index.ts",
+    "test": "cd llm-bench && bun test",
+    "test:watch": "cd llm-bench && bun test --watch",
+    "typecheck": "cd llm-bench && bun run typecheck"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

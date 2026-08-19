@@ -1,0 +1,710 @@
+{
+  "updatedAt": "2026-08-19T06:07:59.110Z",
+  "totalRuns": 5,
+  "isCompleted": true,
+  "runs": [
+    {
+      "id": "run_20260819_130651_f10e",
+      "benchmarkId": "reasoning/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:e01970c40225350c",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "pceay",
+        "model": "pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://127.0.0.1:8080/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T06:06:51.517Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_aa6a3b577eef",
+          "runId": "run_20260819_130651_f10e",
+          "taskId": "reasoning-001",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "1",
+            "actual": "1",
+            "prompt": "Sally has 3 brothers. Each of Sally's brothers has 2 sisters. How many sisters does Sally have? Answer with only the number.",
+            "category": "deduction",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 82,
+          "outputTokens": 288,
+          "latencyMs": 4182,
+          "costUsd": 0,
+          "response": "\n\n1",
+          "createdAt": "2026-08-19T06:06:51.533Z"
+        },
+        {
+          "id": "res_5ca5f6ff8dba",
+          "runId": "run_20260819_130651_f10e",
+          "taskId": "reasoning-002",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "E, D, C, A, B",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "Five runners (A, B, C, D, E) participated in a race. A finished before B but behind C. D finished before C but behind E. What was the exact finishing order from 1st to 5th place? Format as: E, D, C, A, B",
+            "expected": [
+              "E, D, C, A, B"
+            ],
+            "category": "ordering",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 114,
+          "outputTokens": 109,
+          "latencyMs": 1298,
+          "costUsd": 0,
+          "response": "\n\nE, D, C, A, B",
+          "createdAt": "2026-08-19T06:06:55.745Z"
+        },
+        {
+          "id": "res_9e71cc7e41c0",
+          "runId": "run_20260819_130651_f10e",
+          "taskId": "reasoning-003",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "A is a Knave, B is a Knight",
+            "actual": "A is a Knave, B is a Knight",
+            "prompt": "On an island, knights always tell the truth and knaves always lie. Person A says: 'We are both knaves.' What is Person A (Knight or Knave) and what is Person B (Knight or Knave)? Format your answer exactly as: A is a Knave, B is a Knight",
+            "category": "truth-teller",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 115,
+          "outputTokens": 256,
+          "latencyMs": 2927,
+          "costUsd": 0,
+          "response": "\n\nA is a Knave, B is a Knight",
+          "createdAt": "2026-08-19T06:06:57.070Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_130651_f10e",
+        "benchmarkId": "reasoning/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:e01970c40225350c",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 311,
+        "totalOutputTokens": 653,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 2802,
+        "totalDurationMs": 8488,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T06:07:00.005Z"
+    },
+    {
+      "id": "run_20260819_130700_6a89",
+      "benchmarkId": "math/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:cfdd772f8ae4e6f4",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "pceay",
+        "model": "pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://127.0.0.1:8080/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T06:07:00.021Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_2bb4a935a2aa",
+          "runId": "run_20260819_130700_6a89",
+          "taskId": "math-001",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "125",
+            "actual": "125",
+            "prompt": "What is (17 * 23) - (14 * 19)? Output only the final integer number.",
+            "category": "arithmetic",
+            "difficulty": "easy",
+            "taskType": "exact"
+          },
+          "inputTokens": 78,
+          "outputTokens": 108,
+          "latencyMs": 1210,
+          "costUsd": 0,
+          "response": "\n\n125",
+          "createdAt": "2026-08-19T06:07:00.029Z"
+        },
+        {
+          "id": "res_626e243e644f",
+          "runId": "run_20260819_130700_6a89",
+          "taskId": "math-002",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "13",
+            "actual": "13",
+            "prompt": "Solve for x: 3x + 7 = 5x - 19. Output only the value of x.",
+            "category": "algebra",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 79,
+          "outputTokens": 77,
+          "latencyMs": 911,
+          "costUsd": 0,
+          "response": "\n\n13",
+          "createdAt": "2026-08-19T06:07:01.253Z"
+        },
+        {
+          "id": "res_83b25bc1d3e9",
+          "runId": "run_20260819_130700_6a89",
+          "taskId": "math-003",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "2, 2, 3, 7",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "What are all prime factors of 84 in ascending order separated by commas? (e.g. 2, 2, 3, 7 or 2, 3, 7)",
+            "expected": [
+              "2, 2, 3, 7"
+            ],
+            "category": "primes",
+            "difficulty": "medium",
+            "taskType": "contains"
+          },
+          "inputTokens": 93,
+          "outputTokens": 467,
+          "latencyMs": 4539,
+          "costUsd": 0,
+          "response": "\n\n2, 2, 3, 7",
+          "createdAt": "2026-08-19T06:07:02.183Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_130700_6a89",
+        "benchmarkId": "math/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:cfdd772f8ae4e6f4",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 3,
+        "passedTasks": 3,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 250,
+        "totalOutputTokens": 652,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 2220,
+        "totalDurationMs": 6718,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T06:07:06.739Z"
+    },
+    {
+      "id": "run_20260819_130706_cffb",
+      "benchmarkId": "structured/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:da91a4deed2e4289",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "pceay",
+        "model": "pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://127.0.0.1:8080/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T06:07:06.756Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_e60187a98f57",
+          "runId": "run_20260819_130706_cffb",
+          "taskId": "struct-001",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "parsed": {
+              "name": "Jane Doe",
+              "title": "Dr.",
+              "age": 34,
+              "occupation": "physicist",
+              "location": "Cambridge",
+              "email": "jane.doe@cambridge.ac.uk"
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "validationErrors": [],
+            "prompt": "Extract person details as a JSON object: 'Dr. Jane Doe is a 34-year-old physicist living in Cambridge with email jane.doe@cambridge.ac.uk'. Return only JSON.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "name",
+                "age",
+                "occupation",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "number"
+                },
+                "occupation": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            },
+            "category": "user-profile",
+            "difficulty": "easy",
+            "taskType": "json"
+          },
+          "inputTokens": 91,
+          "outputTokens": 182,
+          "latencyMs": 2052,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"name\": \"Jane Doe\",\n  \"title\": \"Dr.\",\n  \"age\": 34,\n  \"occupation\": \"physicist\",\n  \"location\": \"Cambridge\",\n  \"email\": \"jane.doe@cambridge.ac.uk\"\n}",
+          "createdAt": "2026-08-19T06:07:06.766Z"
+        },
+        {
+          "id": "res_6212c79bd795",
+          "runId": "run_20260819_130706_cffb",
+          "taskId": "struct-002",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "parsed": {
+              "customer": "Acme Corp",
+              "currency": "USD",
+              "line_items": [
+                {
+                  "description": "Server Hosting",
+                  "unit_price": 120,
+                  "quantity": 2,
+                  "amount": 240
+                },
+                {
+                  "description": "SSL Certificate",
+                  "unit_price": 50,
+                  "quantity": 1,
+                  "amount": 50
+                }
+              ],
+              "total": 290
+            },
+            "schema": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "validationErrors": [
+              "Missing required property: 'items'"
+            ],
+            "prompt": "Create an invoice JSON for customer 'Acme Corp' with 2 line items: 'Server Hosting' ($120, qty 2) and 'SSL Certificate' ($50, qty 1), currency 'USD'.",
+            "expected": {
+              "type": "object",
+              "required": [
+                "customer",
+                "currency",
+                "items"
+              ],
+              "properties": {
+                "customer": {
+                  "type": "string"
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "USD",
+                    "EUR",
+                    "GBP"
+                  ]
+                },
+                "items": {
+                  "type": "array"
+                }
+              }
+            },
+            "category": "invoice",
+            "difficulty": "medium",
+            "taskType": "json"
+          },
+          "inputTokens": 99,
+          "outputTokens": 463,
+          "latencyMs": 4794,
+          "costUsd": 0,
+          "response": "\n\n```json\n{\n  \"customer\": \"Acme Corp\",\n  \"currency\": \"USD\",\n  \"line_items\": [\n    {\n      \"description\": \"Server Hosting\",\n      \"unit_price\": 120,\n      \"quantity\": 2,\n      \"amount\": 240\n    },\n    {\n      \"description\": \"SSL Certificate\",\n      \"unit_price\": 50,\n      \"quantity\": 1,\n      \"amount\": 50\n    }\n  ],\n  \"total\": 290\n}\n```",
+          "error": "Missing required property: 'items'",
+          "createdAt": "2026-08-19T06:07:08.837Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_130706_cffb",
+        "benchmarkId": "structured/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:da91a4deed2e4289",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 2,
+        "passedTasks": 1,
+        "failedTasks": 1,
+        "accuracy": 0.5,
+        "averageScore": 0.5,
+        "totalInputTokens": 190,
+        "totalOutputTokens": 645,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 3423,
+        "totalDurationMs": 6893,
+        "errorRate": 0.5,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T06:07:13.649Z"
+    },
+    {
+      "id": "run_20260819_130713_99b0",
+      "benchmarkId": "instruction/v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:4cc4c5105b9f564e",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "pceay",
+        "model": "pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://127.0.0.1:8080/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T06:07:13.668Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_f577f3f909c5",
+          "runId": "run_20260819_130713_99b0",
+          "taskId": "instruction-001",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": false,
+          "score": 0,
+          "details": {
+            "pattern": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$",
+            "flags": "i",
+            "matched": false,
+            "groups": null,
+            "prompt": "List 3 programming languages. Each language must be on a new line starting with a bullet '* ' and written in all capital letters. No other text or markdown.",
+            "expected": "^\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+\\n\\* [A-Z0-9+#.-]+$",
+            "category": "formatting",
+            "difficulty": "easy",
+            "taskType": "regex"
+          },
+          "inputTokens": 85,
+          "outputTokens": 108,
+          "latencyMs": 1282,
+          "costUsd": 0,
+          "response": "\n\n* PYTHON\n* JAVA\n* RUST",
+          "createdAt": "2026-08-19T06:07:13.680Z"
+        },
+        {
+          "id": "res_9be474e84564",
+          "runId": "run_20260819_130713_99b0",
+          "taskId": "instruction-002",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "expected": "Framework Benchmark LLM",
+            "actual": "Framework Benchmark LLM",
+            "prompt": "Repeat the phrase 'LLM Benchmark Framework' in reverse word order. Do not include any explanation.",
+            "category": "constraints",
+            "difficulty": "medium",
+            "taskType": "exact"
+          },
+          "inputTokens": 72,
+          "outputTokens": 52,
+          "latencyMs": 524,
+          "costUsd": 0,
+          "response": "\n\nFramework Benchmark LLM",
+          "createdAt": "2026-08-19T06:07:14.978Z"
+        },
+        {
+          "id": "res_c6ea206a3983",
+          "runId": "run_20260819_130713_99b0",
+          "taskId": "instruction-003",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "mode": "all",
+            "checks": [
+              {
+                "item": "ALPHA === BETA === GAMMA",
+                "found": true
+              }
+            ],
+            "foundCount": 1,
+            "totalCount": 1,
+            "prompt": "Output the words 'ALPHA', 'BETA', 'GAMMA' separated by ' === ' with no trailing punctuation.",
+            "expected": [
+              "ALPHA === BETA === GAMMA"
+            ],
+            "category": "delimiter",
+            "difficulty": "easy",
+            "taskType": "contains"
+          },
+          "inputTokens": 78,
+          "outputTokens": 95,
+          "latencyMs": 1051,
+          "costUsd": 0,
+          "response": "\n\nALPHA === BETA === GAMMA",
+          "createdAt": "2026-08-19T06:07:15.524Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_130713_99b0",
+        "benchmarkId": "instruction/v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:4cc4c5105b9f564e",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 3,
+        "passedTasks": 2,
+        "failedTasks": 1,
+        "accuracy": 0.6666666666666666,
+        "averageScore": 0.6666666666666666,
+        "totalInputTokens": 235,
+        "totalOutputTokens": 255,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 952,
+        "totalDurationMs": 2931,
+        "errorRate": 0,
+        "retryCount": 0
+      },
+      "finishedAt": "2026-08-19T06:07:16.599Z"
+    },
+    {
+      "id": "run_20260819_130716_7388",
+      "benchmarkId": "coding/typescript-v1",
+      "benchmarkVersion": "1.0.0",
+      "datasetHash": "sha256:97c3c37ef471a52c",
+      "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+      "modelConfig": {
+        "id": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "provider": "pceay",
+        "model": "pc-eyay/Qwopus3.6-27B-v2-MTP-NVFP4-GGUF.gguf",
+        "baseUrl": "http://127.0.0.1:8080/v1",
+        "enabled": true,
+        "pricing": {
+          "input": 0,
+          "output": 0
+        },
+        "contextWindow": 128000
+      },
+      "options": {
+        "concurrency": 1
+      },
+      "startedAt": "2026-08-19T06:07:16.617Z",
+      "status": "completed",
+      "results": [
+        {
+          "id": "res_b9e6478f3c03",
+          "runId": "run_20260819_130716_7388",
+          "taskId": "task-001",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/userService.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/userService.test.ts:\n(pass) userService > validates standard emails [0.20ms]\n(pass) userService > validates complex emails with subdomains and plus tags [0.01ms]\n(pass) userService > formats active users correctly [0.06ms]\n(pass) userService > formats inactive users correctly [0.01ms]\n\n 4 pass\n 0 fail\n 7 expect() calls\nRan 4 tests across 1 file. [13.00ms]\n",
+            "durationMs": 45,
+            "appliedFiles": [
+              "src/userService.ts"
+            ],
+            "prompt": "Fix the bugs in `src/userService.ts`. The `validateEmail` function should accept valid email addresses with subdomains, dots, and '+' tags (e.g. `alice.smith+tag@mail.example.co.uk`), and `formatUser` must correctly format active users without returning undefined.",
+            "expected": "bun test tests/userService.test.ts",
+            "category": "bugfix",
+            "difficulty": "easy",
+            "taskType": "coding"
+          },
+          "inputTokens": 704,
+          "outputTokens": 1204,
+          "latencyMs": 11215,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"files\": {\n    \"src/userService.ts\": \"export interface User {\\n  id: string;\\n  name: string;\\n  email: string;\\n  isActive: boolean;\\n}\\n\\nexport function validateEmail(email: string): boolean {\\n  // Accept valid email addresses including subdomains, dots, and '+' tags\\n  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$/;\\n  return emailRegex.test(email);\\n}\\n\\nexport function formatUser(user: User): string {\\n  if (!user.isActive) {\\n    return `[INACTIVE] ${user.name} <${user.email}>`;\\n  }\\n\\n  return `${user.name} <${user.email}>`;\\n}\\n\"\n  }\n}",
+          "createdAt": "2026-08-19T06:07:16.628Z"
+        },
+        {
+          "id": "res_b9ba760ca53b",
+          "runId": "run_20260819_130716_7388",
+          "taskId": "task-002",
+          "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+          "passed": true,
+          "score": 1,
+          "details": {
+            "command": "bun test tests/cart.test.ts",
+            "exitCode": 0,
+            "passed": 4,
+            "failed": 0,
+            "total": 4,
+            "score": 1,
+            "stdout": "bun test v1.4.0-canary.1 (681a49bee)\n",
+            "stderr": "\ntests/cart.test.ts:\n(pass) calculateCartTotal > calculates subtotal and tax without coupon [0.42ms]\n(pass) calculateCartTotal > applies SAVE10 percentage discount coupon [0.05ms]\n(pass) calculateCartTotal > applies FLAT5 discount coupon [0.03ms]\n(pass) calculateCartTotal > handles empty cart [0.03ms]\n\n 4 pass\n 0 fail\n 16 expect() calls\nRan 4 tests across 1 file. [16.00ms]\n",
+            "durationMs": 59,
+            "appliedFiles": [
+              "src/cart.ts"
+            ],
+            "prompt": "Implement the `calculateCartTotal` function in `src/cart.ts`. It should compute subtotal, apply coupon discounts (e.g. 'SAVE10' for 10% off, 'FLAT5' for $5 off), apply sales tax rate, and round to 2 decimal places.",
+            "expected": "bun test tests/cart.test.ts",
+            "category": "feature",
+            "difficulty": "medium",
+            "taskType": "coding"
+          },
+          "inputTokens": 950,
+          "outputTokens": 2971,
+          "latencyMs": 30775,
+          "costUsd": 0,
+          "response": "\n\n{\n  \"files\": {\n    \"src/cart.ts\": \"export interface CartItem {\\n  id: string;\\n  name: string;\\n  price: number;\\n  quantity: number;\\n}\\n\\nexport interface CartCalculation {\\n  subtotal: number;\\n  discount: number;\\n  tax: number;\\n  total: number;\\n}\\n\\nexport function calculateCartTotal(\\n  items: CartItem[],\\n  couponCode?: string,\\n  taxRate: number = 0.08\\n): CartCalculation {\\n  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);\\n\\n  let discount = 0;\\n  if (couponCode === 'SAVE10') {\\n    discount = subtotal * 0.10;\\n  } else if (couponCode === 'FLAT5') {\\n    discount = 5;\\n  }\\n\\n  const tax = (subtotal - discount) * taxRate;\\n  const total = subtotal - discount + tax;\\n\\n  const roundTo2Decimals = (value: number): number => Math.round(value * 100) / 100;\\n\\n  return {\\n    subtotal: roundTo2Decimals(subtotal),\\n    discount: roundTo2Decimals(discount),\\n    tax: roundTo2Decimals(tax),\\n    total: roundTo2Decimals(total)\\n  };\\n}\"\n  }\n}",
+          "createdAt": "2026-08-19T06:07:28.019Z"
+        }
+      ],
+      "summary": {
+        "runId": "run_20260819_130716_7388",
+        "benchmarkId": "coding/typescript-v1",
+        "benchmarkVersion": "1.0.0",
+        "datasetHash": "sha256:97c3c37ef471a52c",
+        "modelId": "pceay-qwopus3.6-27B-v2-MTP-NVFP4-GGUF",
+        "totalTasks": 2,
+        "passedTasks": 2,
+        "failedTasks": 0,
+        "accuracy": 1,
+        "averageScore": 1,
+        "totalInputTokens": 1654,
+        "totalOutputTokens": 4175,
+        "totalCachedTokens": 0,
+        "totalCostUsd": 0,
+        "averageLatencyMs": 20995,
+        "totalDurationMs": 42493,
+        "errorRate": 0,
+        "retryCount": 0,
+        "codingMetrics": {
+          "totalTests": 8,
+          "testsPassed": 8,
+          "testsFailed": 0
+        }
+      },
+      "finishedAt": "2026-08-19T06:07:59.110Z"
+    }
+  ]
+}
